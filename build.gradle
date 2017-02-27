@@ -1,0 +1,58 @@
+plugins {
+  id 'java'
+  id 'war'
+  id 'org.springframework.boot' version '1.5.1.RELEASE'
+  id 'eclipse'
+  id 'idea'
+  id 'build-dashboard'
+}
+
+war {
+    baseName = 'gda-rest'
+    version =  '0.0.1'
+}
+
+ext {
+  guavaVersion = '20.0'
+  swaggerVersion = '2.6.1'
+}
+
+group = 'com.gda'
+version = '1.7.2'
+sourceCompatibility = 1.8
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+  
+  compile group: 'org.springframework', name: 'spring-context-support'
+  
+  compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda'
+  compile group: 'com.google.guava', name: 'guava', version: guavaVersion
+  compile group: 'org.liquibase', name: 'liquibase-core'
+  compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
+  compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
+  
+  runtime group: 'mysql', name: 'mysql-connector-java'
+  
+  providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+  
+  testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+defaultTasks 'clean', 'build'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.14.1'
+}
+
+springBoot {
+  executable = true
+  buildInfo()
+}
