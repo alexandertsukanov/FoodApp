@@ -7,7 +7,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-  <changeSet id="1" author="ssv">
+  <changeSet id="1" author="root">
     <createTable tableName="user">
       <column name="id" type="bigint(20)" autoIncrement="true">
         <constraints primaryKey="true" nullable="false" />
@@ -84,44 +84,43 @@
       <column name="order_order_status_id" type="bigint(20)">
         <constraints primaryKey="true" nullable="false" />
       </column>
-      
       <column name="order_id" type="bigint(20)">
         <constraints references="order(id)" foreignKeyName="FK_order_food_id" deleteCascade="true" nullable="false" />
       </column>
     </createTable>
   </changeSet>
     
-  <changeSet id="2" author="ssv">
+  <changeSet id="2" author="root">
     <insert tableName="user">
         <column name="id" value="1" />
         <column name="device_id" value="1dtsrt34645ghnd" />
     </insert>
   </changeSet>
-  
-  <changeSet id="3" author="ssh">
+
+  <changeSet id="3" author="root">
     <insert tableName="user">
-        <column name="device_id" value="test_device_id_0001" />
+      <column name="device_id" value="test_device_id_0001" />
     </insert>
-      <addColumn tableName="category_food">
-          <column name="link" type="varchar(200)"/>
-      </addColumn>
+    <addColumn tableName="category_food">
+      <column name="link" type="varchar(200)"/>
+    </addColumn>
     <insert tableName="category_food">
-        <column name="name" value="Soups" />
-        <column name="link" value="http://onlyglutenfreerecipes.com/wp-content/uploads/2017/01/vegan-fat-burning-soup-14-of-27-2.jpg"/>
-    </insert>
-    <insert tableName="category_food">
-        <column name="name" value="First Meal" />
-        <column name="link" value="https://www.macheesmo.com/wp-content/uploads/2014/03/firstmeal_feature.jpg"/>
+      <column name="name" value="Soups" />
+      <column name="link" value="http://onlyglutenfreerecipes.com/wp-content/uploads/2017/01/vegan-fat-burning-soup-14-of-27-2.jpg"/>
     </insert>
     <insert tableName="category_food">
-        <column name="id" value="3" />
-        <column name="name" value="Desserts" />
-        <column name="link" value="http://www.takepart.com/sites/default/files/styles/tp_gallery_slide/public/chocolate-thunder-down-under-itok=WlYMtdbi.jpg"/>
+      <column name="name" value="First Meal" />
+      <column name="link" value="https://www.macheesmo.com/wp-content/uploads/2014/03/firstmeal_feature.jpg"/>
     </insert>
     <insert tableName="category_food">
-        <column name="name" value="Drinks" />
-        <column name="link" value="http://images.r.cruisecritic.com/features/2016/06/bottoms-up-hero.jpg"/>
-  </insert>
+      <column name="id" value="3" />
+      <column name="name" value="Desserts" />
+      <column name="link" value="http://www.takepart.com/sites/default/files/styles/tp_gallery_slide/public/chocolate-thunder-down-under-itok=WlYMtdbi.jpg"/>
+    </insert>
+    <insert tableName="category_food">
+      <column name="name" value="Drinks" />
+      <column name="link" value="http://images.r.cruisecritic.com/features/2016/06/bottoms-up-hero.jpg"/>
+    </insert>
   </changeSet>
 
 </databaseChangeLog>

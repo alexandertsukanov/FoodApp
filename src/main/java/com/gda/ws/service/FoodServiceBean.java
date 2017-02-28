@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.gda.ws.entity.Food;
+import com.gda.ws.repository.FoodRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class FoodServiceBean implements FoodService {
 
     @Autowired
     private FoodCategoryRepository foodCategoryRepository;
+
+	@Autowired
+	private FoodRepository foodRepository;
     
 	@Override
 	public Collection<FoodCategoryDto> foodCategories() {
@@ -41,4 +46,10 @@ public class FoodServiceBean implements FoodService {
     	dto.setLink(entity.getLink());
     	return dto;
     }
+
+	@Override
+	public Collection<Food> findFoodByCategory(Long id) {
+		Collection<Food> found = foodRepository.findFoodByCategoryId(id);
+		return found;
+	}
 }

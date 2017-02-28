@@ -1,3 +1,5 @@
+import java.sql.Wrapper
+
 plugins {
   id 'java'
   id 'war'
@@ -32,23 +34,28 @@ dependencies {
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   
   compile group: 'org.springframework', name: 'spring-context-support'
-  
+  compile group: 'net.sf.dozer', name: 'dozer', version: '5.5.1'
+
+
   compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda'
   compile group: 'com.google.guava', name: 'guava', version: guavaVersion
   compile group: 'org.liquibase', name: 'liquibase-core'
   compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
-  
+  compile group: 'javax.servlet', name: 'javax.servlet-api'
+
+
   runtime group: 'mysql', name: 'mysql-connector-java'
-  
-  providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-  
+
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
   testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
 
+
+
 defaultTasks 'clean', 'build'
 
-task wrapper(type: Wrapper) {
+task wrapper(type: org.gradle.api.tasks.wrapper.Wrapper) {
   gradleVersion = '2.14.1'
 }
 

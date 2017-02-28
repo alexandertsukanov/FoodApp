@@ -1,5 +1,7 @@
 package com.gda.ws.entity;
 
+import org.dozer.Mapping;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
