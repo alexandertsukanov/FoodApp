@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gda.ws.service.UserService;
-import com.gda.ws.web.api.dto.UserDto;
+import com.gda.ws.dto.UserDto;
 
 /**
  * The UserController class is a RESTful web service controller. The <code>@RestController</code> annotation informs

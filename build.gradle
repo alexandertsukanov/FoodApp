@@ -34,8 +34,6 @@ dependencies {
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   
   compile group: 'org.springframework', name: 'spring-context-support'
-  compile group: 'net.sf.dozer', name: 'dozer', version: '5.5.1'
-
 
   compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda'
   compile group: 'com.google.guava', name: 'guava', version: guavaVersion
@@ -43,7 +41,6 @@ dependencies {
   compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
   compile group: 'javax.servlet', name: 'javax.servlet-api'
-
 
   runtime group: 'mysql', name: 'mysql-connector-java'
 

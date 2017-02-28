@@ -1,4 +1,4 @@
-package com.gda.ws.web.api.dto;
+package com.gda.ws.dto;
 
 public class UserDto {
     

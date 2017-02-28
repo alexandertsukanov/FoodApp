@@ -1,4 +1,4 @@
-package com.gda.ws.service;
+package com.gda.ws.service.impl;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import com.gda.ws.entity.Food;
 import com.gda.ws.repository.FoodRepository;
+import com.gda.ws.service.FoodService;
+import com.gda.ws.dto.FoodDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.gda.ws.entity.FoodCategory;
 import com.gda.ws.repository.FoodCategoryRepository;
-import com.gda.ws.web.api.dto.FoodCategoryDto;
+import com.gda.ws.dto.FoodCategoryDto;
 
 @Service
 public class FoodServiceBean implements FoodService {
@@ -35,6 +37,15 @@ public class FoodServiceBean implements FoodService {
         LOG.info("< findAll");
         return result;
 	}
+
+	@Override
+	public Collection<FoodDto> findFoodByCategory(Long id) {
+		LOG.info("> findAllByCategory");
+		Collection<Food> found = foodRepository.findFoodByCategoryId(id);
+		Collection<FoodDto> result = found.stream().map(e -> from(e)).collect(Collectors.toList());
+		LOG.info("< findAllByCategory");
+		return result;
+	}
 	
 	private static FoodCategoryDto from(FoodCategory entity){
 		if(Objects.isNull(entity)){
@@ -47,9 +58,19 @@ public class FoodServiceBean implements FoodService {
     	return dto;
     }
 
-	@Override
-	public Collection<Food> findFoodByCategory(Long id) {
-		Collection<Food> found = foodRepository.findFoodByCategoryId(id);
-		return found;
+
+	private static FoodDto from(Food entity){
+		if(Objects.isNull(entity)){
+			return null;
+		}
+		FoodDto dto = new FoodDto();
+		dto.setId(entity.getId());
+		dto.setTitle(dto.getTitle());
+		dto.setCategoryId(entity.getCategoryId());
+		dto.setDescription(entity.getDescription());
+		dto.setImageLink(entity.getImageLink());
+		return dto;
 	}
+
+
 }

@@ -2,6 +2,7 @@ package com.gda.ws.web.api;
 
 import java.util.Collection;
 
+import com.gda.ws.dto.FoodDto;
 import com.gda.ws.entity.Food;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gda.ws.service.FoodService;
-import com.gda.ws.web.api.dto.FoodCategoryDto;
+import com.gda.ws.dto.FoodCategoryDto;
 
 @RestController
 public class FoodController {
@@ -45,10 +46,10 @@ public class FoodController {
     @RequestMapping(value = "/api/food-categories/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Food>> findFoodByCategory(@PathVariable("id") Long id) {
+    public ResponseEntity<Collection<FoodDto>> findFoodByCategory(@PathVariable("id") Long id) {
         LOG.info("> foodByCategory");
-        Collection<Food> entities = service.findFoodByCategory(id);
+        Collection<FoodDto> entities = service.findFoodByCategory(id);
         LOG.info("< foodByCategory");
-        return new ResponseEntity<Collection<Food>>(entities, HttpStatus.OK);
+        return new ResponseEntity<Collection<FoodDto>>(entities, HttpStatus.OK);
     }
 }
