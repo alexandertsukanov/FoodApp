@@ -40,10 +40,10 @@ public class FoodServiceBean implements FoodService {
 
 	@Override
 	public Collection<FoodDto> findFoodByCategory(Long id) {
-		LOG.info("> findAllByCategory");
+		LOG.info("> findFoodByCategory");
 		Collection<Food> found = foodRepository.findFoodByCategoryId(id);
 		Collection<FoodDto> result = found.stream().map(e -> from(e)).collect(Collectors.toList());
-		LOG.info("< findAllByCategory");
+		LOG.info("< findFoodByCategory");
 		return result;
 	}
 	

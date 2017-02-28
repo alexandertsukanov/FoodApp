@@ -7,7 +7,6 @@ import com.gda.ws.entity.Food;
 import com.gda.ws.dto.FoodCategoryDto;
 
 public interface FoodService {
-
     Collection<FoodCategoryDto> foodCategories();
 
     Collection<FoodDto> findFoodByCategory(Long id);
