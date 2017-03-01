@@ -8,4 +8,6 @@ import com.gda.ws.entity.FoodCategory;
 @Repository
 public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Long> {
 
+
+
 }

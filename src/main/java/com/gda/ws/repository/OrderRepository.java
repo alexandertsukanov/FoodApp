@@ -6,9 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import com.gda.ws.entity.Order;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    User getUserIdByOrder(Long id);
+    List<Order> findOrdersByUserId(Long id);
 
 }
