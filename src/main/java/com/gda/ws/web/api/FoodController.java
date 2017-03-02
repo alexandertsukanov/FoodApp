@@ -26,13 +26,14 @@ public class FoodController {
     @Autowired
     private FoodService service;
 
-    
+
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
-     * 
+     *
      * @return A ResponseEntity containing a Collection of objects.
      */
+
     @RequestMapping(value = "/api/food-categories",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,7 +50,7 @@ public class FoodController {
     public ResponseEntity<Collection<FoodDto>> findFoodByCategory(@PathVariable("id") Long id) {
         LOG.info("> foodByCategory");
         Collection<FoodDto> entities = service.findFoodByCategory(id);
-        LOG.info("< foodByCategory");
+        LOG.info("< foodBCategory");
         return new ResponseEntity<Collection<FoodDto>>(entities, HttpStatus.OK);
     }
 }

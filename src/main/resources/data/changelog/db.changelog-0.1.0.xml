@@ -48,6 +48,18 @@
       <column name="description" type="varchar(500)">
         <constraints nullable="true" />
       </column>
+      <column name="calories" type="varchar(45)">
+        <constraints nullable="true" />
+      </column>
+      <column name="ingredients" type="varchar(100)">
+        <constraints nullable="true" />
+      </column>
+      <column name="weight" type="varchar(45)">
+        <constraints nullable="true" />
+      </column>
+      <column name="price" type="varchar(45)">
+        <constraints nullable="true" />
+      </column>
       <column name="image_link" type="varchar(100)">
         <constraints nullable="true" />
       </column>
@@ -89,15 +101,12 @@
       </column>
     </createTable>
   </changeSet>
-    
+
   <changeSet id="2" author="root">
     <insert tableName="user">
-        <column name="id" value="1" />
-        <column name="device_id" value="1dtsrt34645ghnd" />
+      <column name="id" value="1" />
+      <column name="device_id" value="1dtsrt34645ghnd" />
     </insert>
-  </changeSet>
-
-  <changeSet id="3" author="root">
     <insert tableName="user">
       <column name="device_id" value="test_device_id_0001" />
     </insert>

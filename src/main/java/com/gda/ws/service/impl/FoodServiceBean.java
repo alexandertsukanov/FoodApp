@@ -69,6 +69,10 @@ public class FoodServiceBean implements FoodService {
 		dto.setCategoryId(entity.getCategoryId());
 		dto.setDescription(entity.getDescription());
 		dto.setImageLink(entity.getImageLink());
+		dto.setWeight(entity.getWeight());
+		dto.setPrice(entity.getPrice());
+		dto.setIngredients(entity.getIngredients());
+		dto.setCalories(entity.getCalories());
 		return dto;
 	}
 

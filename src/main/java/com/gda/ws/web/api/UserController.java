@@ -33,7 +33,7 @@ public class UserController {
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
-     * 
+     *
      * @return A ResponseEntity containing a Collection of objects.
      */
     @RequestMapping(value = "/api/users",
@@ -54,7 +54,7 @@ public class UserController {
      * If found, the UserDto is returned as JSON with HTTP status 200. If not found, the service returns an empty
      * response body with HTTP status 404.
      * </p>
-     * 
+     *
      * @param id A Long URL path variable containing the UserDto primary key identifier.
      * @return A ResponseEntity containing a single UserDto object, if found, and a HTTP status code as described in
      *         the method comment.
@@ -74,7 +74,7 @@ public class UserController {
         LOG.info("< getUser");
         return new ResponseEntity<UserDto>(entity, HttpStatus.OK);
     }
-    
+
     /**
      * <p>
      * Web service endpoint to fetch a single UserDto entity by device id.
@@ -83,7 +83,7 @@ public class UserController {
      * If found, the UserDto is returned as JSON with HTTP status 200. If not found, the service returns an empty
      * response body with HTTP status 404.
      * </p>
-     * 
+     *
      * @param id A Long URL path variable containing the UserDto device id.
      * @return A ResponseEntity containing a single UserDto object, if found, and a HTTP status code as described in
      *         the method comment.
@@ -113,7 +113,7 @@ public class UserController {
      * If created successfully, the persisted UserDto is returned as JSON with HTTP status 201. If not created
      * successfully, the service returns an empty response body with HTTP status 500.
      * </p>
-     * 
+     *
      * @param entity The UserDto object to be created.
      * @return A ResponseEntity containing a single UserDto object, if created successfully, and a HTTP status code as
      *         described in the method comment.
@@ -139,7 +139,7 @@ public class UserController {
      * service returns an empty response body and HTTP status 404. If not updated successfully, the service returns an
      * empty response body with HTTP status 500.
      * </p>
-     * 
+     *
      * @param entity The Greeting object to be updated.
      * @return A ResponseEntity containing a single Greeting object, if updated successfully, and a HTTP status code as
      *         described in the method comment.
@@ -166,7 +166,7 @@ public class UserController {
      * If deleted successfully, the service returns an empty response body with HTTP status 204. If not deleted
      * successfully, the service returns an empty response body with HTTP status 500.
      * </p>
-     * 
+     *
      * @param id A Long URL path variable containing the UserDto primary key identifier.
      * @return A ResponseEntity with an empty response body and a HTTP status code as described in the method comment.
      */
