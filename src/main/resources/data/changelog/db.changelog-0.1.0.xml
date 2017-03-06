@@ -1,135 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-  <changeSet id="1" author="root">
-    <createTable tableName="user">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="device_id" type="varchar(45)">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    
-    <createTable tableName="order_status">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="name" type="varchar(45)">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    
-    <createTable tableName="category_food">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="name" type="varchar(45)">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    
-    <createTable tableName="food">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="category_id" type="bigint(20)">
-        <constraints references="category_food(id)" foreignKeyName="fk_food_2_category_food" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="title" type="varchar(45)">
-        <constraints nullable="true" />
-      </column>
-      <column name="description" type="varchar(500)">
-        <constraints nullable="true" />
-      </column>
-      <column name="calories" type="varchar(45)">
-        <constraints nullable="true" />
-      </column>
-      <column name="ingredients" type="varchar(100)">
-        <constraints nullable="true" />
-      </column>
-      <column name="weight" type="varchar(45)">
-        <constraints nullable="true" />
-      </column>
-      <column name="price" type="varchar(45)">
-        <constraints nullable="true" />
-      </column>
-      <column name="image_link" type="varchar(100)">
-        <constraints nullable="true" />
-      </column>
-    </createTable>
-    
-    <createTable tableName="order">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="food_id" type="bigint(20)">
-        <constraints references="food(id)" foreignKeyName="fk_order_2_food" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="user_id" type="bigint(20)">
-        <constraints references="user(id)" foreignKeyName="fk_order_2_user" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="status_id" type="bigint(20)">
-        <constraints references="order_status(id)" foreignKeyName="fk_order_2_status_id" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="address" type="varchar(100)">
-        <constraints nullable="true" />
-      </column>
-      <column name="phone" type="varchar(45)">
-        <constraints nullable="true" />
-      </column>
-    </createTable>
-    
-    <createTable tableName="history">
-      <column name="id" type="bigint(20)" autoIncrement="true">
-        <constraints primaryKey="true" nullable="false" />
-      </column>
-      <column name="order_user_id" type="bigint(20)">
-        <constraints references="user(id)" foreignKeyName="FK_order_user_id" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="order_order_status_id" type="bigint(20)">
-        <constraints references="order_status(id)" foreignKeyName="FK_order_status_id" deleteCascade="true" nullable="false" />
-      </column>
-      <column name="order_id" type="bigint(20)">
-        <constraints references="order(id)" foreignKeyName="FK_order_food_id" deleteCascade="true" nullable="false" />
-      </column>
-    </createTable>
-  </changeSet>
+    <changeSet id="1" author="root">
+        <createTable tableName="user">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="device_id" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
-  <changeSet id="2" author="root">
-    <insert tableName="user">
-      <column name="id" value="1" />
-      <column name="device_id" value="1dtsrt34645ghnd" />
-    </insert>
-    <insert tableName="user">
-      <column name="device_id" value="test_device_id_0001" />
-    </insert>
-    <addColumn tableName="category_food">
-      <column name="link" type="varchar(200)"/>
-    </addColumn>
-    <insert tableName="category_food">
-      <column name="name" value="Soups" />
-      <column name="link" value="http://onlyglutenfreerecipes.com/wp-content/uploads/2017/01/vegan-fat-burning-soup-14-of-27-2.jpg"/>
-    </insert>
-    <insert tableName="category_food">
-      <column name="name" value="First Meal" />
-      <column name="link" value="https://www.macheesmo.com/wp-content/uploads/2014/03/firstmeal_feature.jpg"/>
-    </insert>
-    <insert tableName="category_food">
-      <column name="id" value="3" />
-      <column name="name" value="Desserts" />
-      <column name="link" value="http://www.takepart.com/sites/default/files/styles/tp_gallery_slide/public/chocolate-thunder-down-under-itok=WlYMtdbi.jpg"/>
-    </insert>
-    <insert tableName="category_food">
-      <column name="name" value="Drinks" />
-      <column name="link" value="http://images.r.cruisecritic.com/features/2016/06/bottoms-up-hero.jpg"/>
-    </insert>
-  </changeSet>
+        <createTable tableName="order_status">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="food_category">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link_big" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="food">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint(20)">
+                <constraints references="food_category(id)" foreignKeyName="fk_food_2_food_category"
+                             deleteCascade="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="calories" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ingredients" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="weight" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="price" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="image_link" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="order">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="food_id" type="bigint(20)">
+                <constraints references="food(id)" foreignKeyName="fk_order_2_food" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint(20)">
+                <constraints references="user(id)" foreignKeyName="fk_order_2_user" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="status_id" type="bigint(20)">
+                <constraints references="order_status(id)" foreignKeyName="fk_order_2_status_id" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="address" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="phone" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="history">
+            <column name="id" type="bigint(20)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_user_id" type="bigint(20)">
+                <constraints references="user(id)" foreignKeyName="FK_order_user_id" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="order_order_status_id" type="bigint(20)">
+                <constraints references="order_status(id)" foreignKeyName="FK_order_status_id" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint(20)">
+                <constraints references="order(id)" foreignKeyName="FK_order_food_id" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="root">
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="device_id" value="1dtsrt34645ghnd"/>
+        </insert>
+        <insert tableName="user">
+            <column name="device_id" value="test_device_id_0001"/>
+        </insert>
+        <insert tableName="food_category">
+            <column name="name" value="Soups"/>
+            <column name="link"
+                    value="http://onlyglutenfreerecipes.com/wp-content/uploads/2017/01/vegan-fat-burning-soup-14-of-27-2.jpg"/>
+        </insert>
+        <insert tableName="food_category">
+            <column name="name" value="Pasta"/>
+            <column name="link" value="https://www.macheesmo.com/wp-content/uploads/2014/03/firstmeal_feature.jpg"/>
+        </insert>
+        <insert tableName="food_category">
+            <column name="name" value="Desserts"/>
+            <column name="link"
+                    value="http://www.takepart.com/sites/default/files/styles/tp_gallery_slide/public/chocolate-thunder-down-under-itok=WlYMtdbi.jpg"/>
+        </insert>
+        <insert tableName="food_category">
+            <column name="name" value="Drinks"/>
+            <column name="link" value="http://images.r.cruisecritic.com/features/2016/06/bottoms-up-hero.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="1"/>
+            <column name="title" value="Cream of Chicken with Wild Rice"/>
+            <column name="description" value="Pulled chicken, wild rice and fresh mushrooms in creamy deliciousness. Offered with an optional topping of green onions."/>
+            <column name="calories" value="450"/>
+            <column name="ingredients" value="Pulled chicken, wild rice and fresh mushrooms"/>
+            <column name="weight" value="300"/>
+            <column name="price" value="65"/>
+            <column name="image_link" value="https://image.ibb.co/dDrxBF/Cream_of_Chicken_with_Wild_Rice.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="1"/>
+            <column name="title" value="Housemade Lentil Soup"/>
+            <column name="description" value="Made from scratch daily with slow-cooked lentils, vegetables and herbs, topped with a spoonful of our spiced crema."/>
+            <column name="calories" value="400"/>
+            <column name="ingredients" value="lentils, vegetables and herbs"/>
+            <column name="weight" value="350"/>
+            <column name="price" value="56"/>
+            <column name="image_link" value="https://image.ibb.co/ePqDka/Housemade_Lentil_Soup.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="1"/>
+            <column name="title" value="Tuscan Vegetable"/>
+            <column name="description" value="VEGAN. A delicious array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes in a vegetable broth with garlic and fresh basil. Offered with an optional topping of basil."/>
+            <column name="calories" value="500"/>
+            <column name="ingredients" value="array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes"/>
+            <column name="weight" value="400"/>
+            <column name="price" value="68"/>
+            <column name="image_link" value="https://image.ibb.co/kxADka/Tuscan_Vegetable.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="2"/>
+            <column name="title" value="Alfredo"/>
+            <column name="description" value="Your choice of spaghetti, fettuccine or penne, served with crispy bacon, ham and brown mushrooms in a rich, cream-based sauce."/>
+            <column name="calories" value="450"/>
+            <column name="ingredients" value="spaghetti, fettuccine , brown mushrooms etc"/>
+            <column name="weight" value="300"/>
+            <column name="price" value="55"/>
+            <column name="image_link" value="https://image.ibb.co/idp65a/Alfredo.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="2"/>
+            <column name="title" value="Chicken Capricciosa"/>
+            <column name="description" value="Your choice of spaghetti, fettuccine or penne, served with oven-roasted chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
+            <column name="calories" value="500"/>
+            <column name="ingredients" value="spaghetti, fettuccine or penne, chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
+            <column name="weight" value="400"/>
+            <column name="price" value="51"/>
+            <column name="image_link" value="https://image.ibb.co/dV8zQa/Chicken_Capricciosa.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="2"/>
+            <column name="title" value="Spaghetti and Meatballs"/>
+            <column name="description" value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
+            <column name="calories" value="400"/>
+            <column name="ingredients" value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
+            <column name="weight" value="350"/>
+            <column name="price" value="67"/>
+            <column name="image_link" value="https://image.ibb.co/i2jHBF/Spaghetti_and_Meatballs.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="3"/>
+            <column name="title" value="Sweet sandwich"/>
+            <column name="description" value="Incredibly delicious sweet sandwich"/>
+            <column name="calories" value="300"/>
+            <column name="ingredients" value="bread, honey, blueberries, banana"/>
+            <column name="weight" value="150"/>
+            <column name="price" value="20"/>
+            <column name="image_link" value="https://image.ibb.co/dhmfWF/Sweet_sandwich.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="3"/>
+            <column name="title" value="Vanilla cheesecake"/>
+            <column name="description" value="Creamy vanilla cheesecake on a graham cracker crust topped with your choice of blueberries in syrup or drizzled with chocolate or caramel sauce."/>
+            <column name="calories" value="500"/>
+            <column name="ingredients" value="cheesecake
+blueberries, caramel sauce"/>
+            <column name="weight" value="120"/>
+            <column name="price" value="35"/>
+            <column name="image_link" value="https://image.ibb.co/iqdurF/cheesecake.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="3"/>
+            <column name="title" value="PANNA COTTAS"/>
+            <column name="description" value="Mini panna cotta with a raspberries"/>
+            <column name="calories" value="200"/>
+            <column name="ingredients" value="panna cotta,
+raspberries"/>
+            <column name="weight" value="90"/>
+            <column name="price" value="35"/>
+            <column name="image_link" value="https://image.ibb.co/nJ4Oka/panna_cota.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="4"/>
+            <column name="title" value="Margarita cocktail"/>
+            <column name="description" value="The origin of the Margarita recipe is fiercely debated, but we think it's got Mexico written all over it. With tequila, triple sec and fresh lime it's tart, zingy and satisfying."/>
+            <column name="calories" value="150"/>
+            <column name="ingredients" value="Cazadores Tequila, triple sec liqueur, lime juice,lime wedge,Salt"/>
+            <column name="weight" value="80"/>
+            <column name="price" value="30"/>
+            <column name="image_link" value="https://image.ibb.co/hBN7dv/margarita_cocktail.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="4"/>
+            <column name="title" value="cocoa with marshmallows"/>
+            <column name="description" value="cocoa with marshmallows"/>
+            <column name="calories" value="200"/>
+            <column name="ingredients" value="cocoa, marshmallow"/>
+            <column name="weight" value="150"/>
+            <column name="price" value="18"/>
+            <column name="image_link" value="https://image.ibb.co/kF1dka/cocoa_with_marshmall.jpg"/>
+        </insert>
+        <insert tableName="food">
+            <column name="category_id" value="4"/>
+            <column name="title" value="Bloody Mary"/>
+            <column name="description" value="This vodka cocktail has endless variations. You can add chilli, Worcestershire sauce, Tabasco, herbs... even bacon. It's up to you!"/>
+            <column name="calories" value="200"/>
+            <column name="ingredients" value="Grey Goose vodka,
+organic tomato juice,fresh lemon juice ,Worcestershire sauce,Tabasco ,Pinch of black pepper"/>
+            <column name="weight" value="120"/>
+            <column name="price" value="40"/>
+            <column name="image_link" value="https://image.ibb.co/dJL7BF/Bloody_Mary.jpg"/>
+        </insert>
+
+
+
+    </changeSet>
 
 </databaseChangeLog>

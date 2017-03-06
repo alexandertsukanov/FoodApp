@@ -8,6 +8,7 @@ import com.gda.ws.entity.Food;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.service.FoodService;
 import com.gda.ws.dto.FoodDto;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class FoodServiceBean implements FoodService {
 	private FoodRepository foodRepository;
     
 	@Override
+	@HystrixCommand
 	public Collection<FoodCategoryDto> foodCategories() {
 		LOG.info("> findAll");
         Collection<FoodCategory> found = foodCategoryRepository.findAll();

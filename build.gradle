@@ -36,11 +36,14 @@ dependencies {
   compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
   compile group: 'javax.servlet', name: 'javax.servlet-api'
+//  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka', version: '1.2.0.RELEASE'
+  // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-hystrix
+  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix', version: '1.2.5.RELEASE'
 
   runtime group: 'mysql', name: 'mysql-connector-java'
 
-  compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
-  compileOnly group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.5'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+  compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.5'
 
   testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }

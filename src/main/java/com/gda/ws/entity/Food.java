@@ -28,7 +28,6 @@ public class Food {
 	@Column(name = "calories")
 	private String calories;
 
-
 	public Long getId() {
 		return id;
 	}
