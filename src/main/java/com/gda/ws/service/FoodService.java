@@ -10,5 +10,7 @@ public interface FoodService {
 
     Collection<FoodCategoryDto> foodCategories();
 
+    Collection<FoodDto> findAllfood();
+
     Collection<FoodDto> findFoodByCategory(Long id);
 }

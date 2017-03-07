@@ -28,7 +28,17 @@ public class FoodServiceBean implements FoodService {
 
 	@Autowired
 	private FoodRepository foodRepository;
-    
+
+
+	@Override
+	public Collection<FoodDto> findAllfood() {
+		LOG.info("> findAllFood");
+		Collection<Food> found = foodRepository.findAll();
+		Collection<FoodDto> result = found.stream().map(e -> from(e)).collect(Collectors.toList());
+		LOG.info("< findAllFood");
+		return result;
+	}
+
 	@Override
 	@HystrixCommand
 	public Collection<FoodCategoryDto> foodCategories() {
