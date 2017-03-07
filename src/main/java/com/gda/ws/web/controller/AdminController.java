@@ -16,14 +16,14 @@ public class AdminController {
     @Autowired
     private FoodService foodService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     String getMain() {
         return "main";
     }
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    String getError() {
-        return "error";
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    String getLogin() {
+        return "redirect:/main";
     }
 
     @RequestMapping(value = "/food", method = RequestMethod.GET)

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="col-md-6 col-md-offset-3">
-    <form:form method="post" modelAttribute="FoodForm" action="/food/edit/${food.id}">
+    <form:form method="post" modelAttribute="FoodForm" action="/food/edit/${FoodForm.id}">
         <label for="categoryId">Category</label>
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="categoryId">
             <c:forEach var="categories" items="${categories}">
@@ -35,5 +35,7 @@
             <label for="imageLink">Image Link</label>
             <form:input class="form-control" id="imageLink" path="imageLink" type="text"/>
         </div>
+        <form:button type="submit" class="btn btn-info btn-md">Save</form:button>
+        <a href="/food" class="btn btn-info btn-md">Cancel</a>
     </form:form>
 </div>

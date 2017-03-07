@@ -11,10 +11,14 @@
     <nav class="navbar navbar-default navbar-static-top">
         <a class="navbar-brand" href="/">FoodApp</a>
         <ul class="nav navbar-nav">
-            <li><a href="/">Main</a></li>
+            <li><a href="/main">Main</a></li>
             <li><a href="/food">Food</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/orders">Orders</a></li>
+            <li><a href="/#">Users</a></li>
+            <li><a href="/#">Orders</a></li>
+            <li><a href="/#">History</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login">Log out <span class="glyphicon glyphicon-log-in"></span></a></li>
         </ul>
     </nav>
 </header>
