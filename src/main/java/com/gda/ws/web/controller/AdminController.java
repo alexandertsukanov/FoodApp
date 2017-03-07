@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class AdminController {
@@ -22,7 +21,13 @@ public class AdminController {
     @RequestMapping(value = "/food", method = RequestMethod.GET)
     String getEdit(Model model){
         model.addAttribute("food", foodService.findAllfood());
+        model.addAttribute("categories", foodService.foodCategories());
         return "food";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    String getLogin(Model model) {
+        return "login";
     }
 
 }
