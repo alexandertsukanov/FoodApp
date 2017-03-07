@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class AdminController {
+public class FoodController {
 
     @Autowired
     private FoodService foodService;
@@ -40,22 +40,30 @@ public class AdminController {
         return "food";
     }
 
-    @RequestMapping(value = "/food/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/food/", method = RequestMethod.GET)
+    String createNewFood(Model model) {
+        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("FoodForm", new FoodForm());
+        return "edit/food";
+    }
+
+    @RequestMapping(value = "/edit/food/{id}", method = RequestMethod.GET)
     String editFoodById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("categories", foodService.foodCategories());
         model.addAttribute("FoodForm", foodService.findOne(id));
-        return "edit";
+        return "edit/food";
     }
 
-    @RequestMapping(value = "/food/edit/{id}", method = RequestMethod.POST)
-    String saveFoodById(@PathVariable("id") Long id, @ModelAttribute FoodForm foodForm) {
-
-        return "food";
+    @RequestMapping(value = "/edit/food/", method = RequestMethod.POST)
+    String saveNewFood(Model model, @ModelAttribute FoodForm foodForm) {
+        foodService.saveOne(foodForm);
+        return "redirect:/food";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    String getLogin(Model model) {
-        return "login";
+    @RequestMapping(value = "/delete/food/{id}", method = RequestMethod.GET)
+    String deleteFood(@PathVariable("id") Long id) {
+        foodService.deleteOne(id);
+        return "redirect:/food";
     }
 
 }

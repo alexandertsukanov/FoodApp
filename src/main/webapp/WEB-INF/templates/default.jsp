@@ -9,10 +9,11 @@
 <body>
 <header>
     <nav class="navbar navbar-default navbar-static-top">
-        <a class="navbar-brand" href="/">FoodApp</a>
+        <a class="navbar-brand" href="/main">FoodApp</a>
         <ul class="nav navbar-nav">
             <li><a href="/main">Main</a></li>
             <li><a href="/food">Food</a></li>
+            <li><a href="/categories">Categories</a></li>
             <li><a href="/#">Users</a></li>
             <li><a href="/#">Orders</a></li>
             <li><a href="/#">History</a></li>

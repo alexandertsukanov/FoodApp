@@ -4,6 +4,7 @@ import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.forms.FoodForm;
 import com.gda.ws.repository.FoodCategoryRepository;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.service.FoodService;
@@ -32,6 +33,38 @@ public class FoodServiceBean implements FoodService {
 	public FoodDto findOne(Long id) {
 		FoodDto result = from(foodRepository.findOne(id));
 		return result;
+	}
+
+	@Override
+	public void deleteOne(Long id) {
+		foodRepository.delete(id);
+	}
+
+	@Override
+	public void saveOne(FoodForm form) {
+		if (form.getId() != null) {
+			Food food = foodRepository.findOne(form.getId());
+			food.setCategoryId(form.getCategoryId());
+			food.setTitle(form.getTitle());
+			food.setDescription(form.getDescription());
+			food.setCalories(form.getCalories());
+			food.setIngredients(form.getIngredients());
+			food.setWeight(form.getWeight());
+			food.setPrice(form.getPrice());
+			food.setImageLink(form.getImageLink());
+			foodRepository.save(food);
+		} else {
+			Food food = new Food();
+			food.setCategoryId(form.getCategoryId());
+			food.setTitle(form.getTitle());
+			food.setDescription(form.getDescription());
+			food.setCalories(form.getCalories());
+			food.setIngredients(form.getIngredients());
+			food.setWeight(form.getWeight());
+			food.setPrice(form.getPrice());
+			food.setImageLink(form.getImageLink());
+			foodRepository.save(food);
+		}
 	}
 
 	@Override
