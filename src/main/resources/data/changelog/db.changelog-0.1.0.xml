@@ -262,9 +262,6 @@ organic tomato juice,fresh lemon juice ,Worcestershire sauce,Tabasco ,Pinch of b
             <column name="price" value="40"/>
             <column name="image_link" value="https://image.ibb.co/dJL7BF/Bloody_Mary.jpg"/>
         </insert>
-
-
-
     </changeSet>
 
 </databaseChangeLog>
