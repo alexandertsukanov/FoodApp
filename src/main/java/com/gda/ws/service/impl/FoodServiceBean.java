@@ -1,22 +1,21 @@
 package com.gda.ws.service.impl;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.gda.ws.dto.FoodCategoryDto;
+import com.gda.ws.dto.FoodDto;
 import com.gda.ws.entity.Food;
+import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.repository.FoodCategoryRepository;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.service.FoodService;
-import com.gda.ws.dto.FoodDto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gda.ws.entity.FoodCategory;
-import com.gda.ws.repository.FoodCategoryRepository;
-import com.gda.ws.dto.FoodCategoryDto;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class FoodServiceBean implements FoodService {
@@ -29,6 +28,11 @@ public class FoodServiceBean implements FoodService {
 	@Autowired
 	private FoodRepository foodRepository;
 
+	@Override
+	public FoodDto findOne(Long id) {
+		FoodDto result = from(foodRepository.findOne(id));
+		return result;
+	}
 
 	@Override
 	public Collection<FoodDto> findAllfood() {

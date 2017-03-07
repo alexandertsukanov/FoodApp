@@ -1,9 +1,12 @@
 package com.gda.ws.web.controller;
 
+import com.gda.ws.forms.FoodForm;
 import com.gda.ws.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,17 +14,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 
     @Autowired
-    FoodService foodService;
+    private FoodService foodService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    String getPublic(){
+    String getMain() {
         return "main";
     }
 
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    String getError() {
+        return "error";
+    }
+
     @RequestMapping(value = "/food", method = RequestMethod.GET)
-    String getEdit(Model model){
+    String getFood(Model model) {
         model.addAttribute("food", foodService.findAllfood());
         model.addAttribute("categories", foodService.foodCategories());
+        return "food";
+    }
+
+    @RequestMapping(value = "/food/{id}", method = RequestMethod.GET)
+    String getFoodById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("food", foodService.findFoodByCategory(id));
+        return "food";
+    }
+
+    @RequestMapping(value = "/food/edit/{id}", method = RequestMethod.GET)
+    String editFoodById(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("FoodForm", foodService.findOne(id));
+        return "edit";
+    }
+
+    @RequestMapping(value = "/food/edit/{id}", method = RequestMethod.POST)
+    String saveFoodById(@PathVariable("id") Long id, @ModelAttribute FoodForm foodForm) {
+
         return "food";
     }
 

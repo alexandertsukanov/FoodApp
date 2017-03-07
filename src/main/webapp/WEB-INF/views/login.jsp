@@ -16,7 +16,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="http://phpoll.com/login/process" method="post" role="form"
+                            <form id="login-form" action="#" method="post" role="form"
                                   style="display: block;">
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
@@ -42,7 +42,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="http://phpoll.com/recover" tabindex="5"
+                                                <a href="#" tabindex="5"
                                                    class="forgot-password">Forgot Password?</a>
                                             </div>
                                         </div>
