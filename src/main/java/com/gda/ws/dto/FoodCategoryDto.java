@@ -5,7 +5,8 @@ public class FoodCategoryDto {
     private Long id;
     private String name;
     private String link;
-	
+	private String linkBig;
+
 	public Long getId() {
 		return id;
 	}
@@ -23,5 +24,13 @@ public class FoodCategoryDto {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String getLinkBig() {
+		return linkBig;
+	}
+
+	public void setLinkBig(String linkBig) {
+		this.linkBig = linkBig;
 	}
 }

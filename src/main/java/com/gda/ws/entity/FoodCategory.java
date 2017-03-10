@@ -1,23 +1,20 @@
 package com.gda.ws.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "food_category")
 public class FoodCategory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(name = "name")
     private String name;
 	@Column(name = "link")
     private String link;
+	@Column(name = "link_big")
+	private String linkBig;
 	
 	public Long getId() {
 		return id;
@@ -36,5 +33,13 @@ public class FoodCategory {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String getLinkBig() {
+		return linkBig;
+	}
+
+	public void setLinkBig(String linkBig) {
+		this.linkBig = linkBig;
 	}
 }

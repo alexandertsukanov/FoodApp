@@ -71,26 +71,23 @@
         </createTable>
 
         <createTable tableName="order">
-            <column name="id" type="bigint(20)" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="id" type="bigint(20)" autoIncrement="false">
+                <constraints nullable="false"/>
             </column>
             <column name="food_id" type="bigint(20)">
-                <constraints references="food(id)" foreignKeyName="fk_order_2_food" deleteCascade="true"
+                <constraints references="food(id)" foreignKeyName="fk_order_2_food_id" deleteCascade="true"
                              nullable="false"/>
             </column>
+            <column name="quantity" type="bigint(20)">
+                <constraints nullable="false"/>
+            </column>
             <column name="user_id" type="bigint(20)">
-                <constraints references="user(id)" foreignKeyName="fk_order_2_user" deleteCascade="true"
+                <constraints references="user(id)" foreignKeyName="fk_order_2_user_id" deleteCascade="true"
                              nullable="false"/>
             </column>
             <column name="status_id" type="bigint(20)">
                 <constraints references="order_status(id)" foreignKeyName="fk_order_2_status_id" deleteCascade="true"
                              nullable="false"/>
-            </column>
-            <column name="address" type="varchar(100)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="phone" type="varchar(45)">
-                <constraints nullable="true"/>
             </column>
         </createTable>
 
@@ -99,16 +96,32 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="order_user_id" type="bigint(20)">
-                <constraints references="user(id)" foreignKeyName="FK_order_user_id" deleteCascade="true"
+                <constraints references="user(id)" foreignKeyName="fk_history_2_user_id" deleteCascade="true"
                              nullable="false"/>
             </column>
             <column name="order_order_status_id" type="bigint(20)">
-                <constraints references="order_status(id)" foreignKeyName="FK_order_status_id" deleteCascade="true"
+                <constraints references="order_status(id)" foreignKeyName="fk_history_2_status_id" deleteCascade="true"
                              nullable="false"/>
             </column>
             <column name="order_id" type="bigint(20)">
-                <constraints references="order(id)" foreignKeyName="FK_order_food_id" deleteCascade="true"
+                <constraints references="order(id)" foreignKeyName="fk_history_2_food_id" deleteCascade="true"
                              nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="order_info">
+            <column name="id" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id">
+                <constraints references="order(id)" foreignKeyName="fk_order_info_2_order_id" deleteCascade="true"
+                             nullable="false"/>
+            </column>
+            <column name="adress" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(200)">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -124,25 +137,31 @@
         <insert tableName="food_category">
             <column name="name" value="Soups"/>
             <column name="link"
-                    value="http://onlyglutenfreerecipes.com/wp-content/uploads/2017/01/vegan-fat-burning-soup-14-of-27-2.jpg"/>
+                    value="https://image.ibb.co/ccBCdv/soup.png"/>
+            <column name="link_big" value="https://image.ibb.co/jaQika/Soups.jpg">
+            </column>
         </insert>
         <insert tableName="food_category">
             <column name="name" value="Pasta"/>
-            <column name="link" value="https://www.macheesmo.com/wp-content/uploads/2014/03/firstmeal_feature.jpg"/>
+            <column name="link" value="https://image.ibb.co/bx4nBF/pasta.png"/>
+            <column name="link_big" value="https://image.ibb.co/i3mvyv/pasta.jpg"/>
         </insert>
         <insert tableName="food_category">
             <column name="name" value="Desserts"/>
             <column name="link"
-                    value="http://www.takepart.com/sites/default/files/styles/tp_gallery_slide/public/chocolate-thunder-down-under-itok=WlYMtdbi.jpg"/>
+                    value="https://image.ibb.co/kowdJv/cake.png"/>
+            <column name="link_big" value="https://image.ibb.co/bwgOka/Desserts.jpg"/>
         </insert>
         <insert tableName="food_category">
             <column name="name" value="Drinks"/>
-            <column name="link" value="http://images.r.cruisecritic.com/features/2016/06/bottoms-up-hero.jpg"/>
+            <column name="link" value="https://image.ibb.co/f2fika/drink.png"/>
+            <column name="link_big" value="https://image.ibb.co/fMj9Qa/drinks.jpg"/>
         </insert>
         <insert tableName="food">
             <column name="category_id" value="1"/>
             <column name="title" value="Cream of Chicken with Wild Rice"/>
-            <column name="description" value="Pulled chicken, wild rice and fresh mushrooms in creamy deliciousness. Offered with an optional topping of green onions."/>
+            <column name="description"
+                    value="Pulled chicken, wild rice and fresh mushrooms in creamy deliciousness. Offered with an optional topping of green onions."/>
             <column name="calories" value="450"/>
             <column name="ingredients" value="Pulled chicken, wild rice and fresh mushrooms"/>
             <column name="weight" value="300"/>
@@ -152,7 +171,8 @@
         <insert tableName="food">
             <column name="category_id" value="1"/>
             <column name="title" value="Housemade Lentil Soup"/>
-            <column name="description" value="Made from scratch daily with slow-cooked lentils, vegetables and herbs, topped with a spoonful of our spiced crema."/>
+            <column name="description"
+                    value="Made from scratch daily with slow-cooked lentils, vegetables and herbs, topped with a spoonful of our spiced crema."/>
             <column name="calories" value="400"/>
             <column name="ingredients" value="lentils, vegetables and herbs"/>
             <column name="weight" value="350"/>
@@ -162,9 +182,11 @@
         <insert tableName="food">
             <column name="category_id" value="1"/>
             <column name="title" value="Tuscan Vegetable"/>
-            <column name="description" value="VEGAN. A delicious array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes in a vegetable broth with garlic and fresh basil. Offered with an optional topping of basil."/>
+            <column name="description"
+                    value="VEGAN. A delicious array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes in a vegetable broth with garlic and fresh basil. Offered with an optional topping of basil."/>
             <column name="calories" value="500"/>
-            <column name="ingredients" value="array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes"/>
+            <column name="ingredients"
+                    value="array of zucchini, eggplant, spinach, tomatoes, green beans and yukon potatoes"/>
             <column name="weight" value="400"/>
             <column name="price" value="68"/>
             <column name="image_link" value="https://image.ibb.co/kxADka/Tuscan_Vegetable.jpg"/>
@@ -172,7 +194,8 @@
         <insert tableName="food">
             <column name="category_id" value="2"/>
             <column name="title" value="Alfredo"/>
-            <column name="description" value="Your choice of spaghetti, fettuccine or penne, served with crispy bacon, ham and brown mushrooms in a rich, cream-based sauce."/>
+            <column name="description"
+                    value="Your choice of spaghetti, fettuccine or penne, served with crispy bacon, ham and brown mushrooms in a rich, cream-based sauce."/>
             <column name="calories" value="450"/>
             <column name="ingredients" value="spaghetti, fettuccine , brown mushrooms etc"/>
             <column name="weight" value="300"/>
@@ -182,9 +205,11 @@
         <insert tableName="food">
             <column name="category_id" value="2"/>
             <column name="title" value="Chicken Capricciosa"/>
-            <column name="description" value="Your choice of spaghetti, fettuccine or penne, served with oven-roasted chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
+            <column name="description"
+                    value="Your choice of spaghetti, fettuccine or penne, served with oven-roasted chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
             <column name="calories" value="500"/>
-            <column name="ingredients" value="spaghetti, fettuccine or penne, chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
+            <column name="ingredients"
+                    value="spaghetti, fettuccine or penne, chicken, assorted peppers and brown mushrooms in a cream-based sauce."/>
             <column name="weight" value="400"/>
             <column name="price" value="51"/>
             <column name="image_link" value="https://image.ibb.co/dV8zQa/Chicken_Capricciosa.jpg"/>
@@ -192,9 +217,11 @@
         <insert tableName="food">
             <column name="category_id" value="2"/>
             <column name="title" value="Spaghetti and Meatballs"/>
-            <column name="description" value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
+            <column name="description"
+                    value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
             <column name="calories" value="400"/>
-            <column name="ingredients" value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
+            <column name="ingredients"
+                    value="Spaghetti and meatballs in a tomato-based sauce with basil, oregano and garlic."/>
             <column name="weight" value="350"/>
             <column name="price" value="67"/>
             <column name="image_link" value="https://image.ibb.co/i2jHBF/Spaghetti_and_Meatballs.jpg"/>
@@ -212,7 +239,8 @@
         <insert tableName="food">
             <column name="category_id" value="3"/>
             <column name="title" value="Vanilla cheesecake"/>
-            <column name="description" value="Creamy vanilla cheesecake on a graham cracker crust topped with your choice of blueberries in syrup or drizzled with chocolate or caramel sauce."/>
+            <column name="description"
+                    value="Creamy vanilla cheesecake on a graham cracker crust topped with your choice of blueberries in syrup or drizzled with chocolate or caramel sauce."/>
             <column name="calories" value="500"/>
             <column name="ingredients" value="cheesecake
 blueberries, caramel sauce"/>
@@ -234,7 +262,8 @@ raspberries"/>
         <insert tableName="food">
             <column name="category_id" value="4"/>
             <column name="title" value="Margarita cocktail"/>
-            <column name="description" value="The origin of the Margarita recipe is fiercely debated, but we think it's got Mexico written all over it. With tequila, triple sec and fresh lime it's tart, zingy and satisfying."/>
+            <column name="description"
+                    value="The origin of the Margarita recipe is fiercely debated, but we think it's got Mexico written all over it. With tequila, triple sec and fresh lime it's tart, zingy and satisfying."/>
             <column name="calories" value="150"/>
             <column name="ingredients" value="Cazadores Tequila, triple sec liqueur, lime juice,lime wedge,Salt"/>
             <column name="weight" value="80"/>
@@ -254,7 +283,8 @@ raspberries"/>
         <insert tableName="food">
             <column name="category_id" value="4"/>
             <column name="title" value="Bloody Mary"/>
-            <column name="description" value="This vodka cocktail has endless variations. You can add chilli, Worcestershire sauce, Tabasco, herbs... even bacon. It's up to you!"/>
+            <column name="description"
+                    value="This vodka cocktail has endless variations. You can add chilli, Worcestershire sauce, Tabasco, herbs... even bacon. It's up to you!"/>
             <column name="calories" value="200"/>
             <column name="ingredients" value="Grey Goose vodka,
 organic tomato juice,fresh lemon juice ,Worcestershire sauce,Tabasco ,Pinch of black pepper"/>

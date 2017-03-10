@@ -4,6 +4,7 @@ import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.forms.CategoryForm;
 import com.gda.ws.forms.FoodForm;
 import com.gda.ws.repository.FoodCategoryRepository;
 import com.gda.ws.repository.FoodRepository;
@@ -30,14 +31,25 @@ public class FoodServiceBean implements FoodService {
 	private FoodRepository foodRepository;
 
 	@Override
-	public FoodDto findOne(Long id) {
+	public FoodDto findOneFood(Long id) {
 		FoodDto result = from(foodRepository.findOne(id));
 		return result;
 	}
 
 	@Override
-	public void deleteOne(Long id) {
+	public FoodCategoryDto findOneCategory(Long id) {
+		FoodCategoryDto result = from(foodCategoryRepository.findOne(id));
+		return result;
+	}
+
+	@Override
+	public void deleteOneFood(Long id) {
 		foodRepository.delete(id);
+	}
+
+	@Override
+	public void deleteOneCategory(Long id) {
+		foodCategoryRepository.delete(id);
 	}
 
 	@Override
@@ -64,6 +76,23 @@ public class FoodServiceBean implements FoodService {
 			food.setPrice(form.getPrice());
 			food.setImageLink(form.getImageLink());
 			foodRepository.save(food);
+		}
+	}
+
+	@Override
+	public void saveOne(CategoryForm form) {
+		if (form.getId() != null) {
+			FoodCategory foodCategory = foodCategoryRepository.findOne(form.getId());
+			foodCategory.setName(form.getName());
+			foodCategory.setLink(form.getLink());
+			foodCategory.setLinkBig(form.getLinkBig());
+			foodCategoryRepository.save(foodCategory);
+		} else {
+			FoodCategory foodCategory = new FoodCategory();
+			foodCategory.setName(form.getName());
+			foodCategory.setLink(form.getLink());
+			foodCategory.setLinkBig(form.getLinkBig());
+			foodCategoryRepository.save(foodCategory);
 		}
 	}
 
@@ -104,7 +133,8 @@ public class FoodServiceBean implements FoodService {
     	dto.setId(entity.getId());
     	dto.setName(entity.getName());
     	dto.setLink(entity.getLink());
-    	return dto;
+		dto.setLinkBig(entity.getLinkBig());
+		return dto;
     }
 
 
