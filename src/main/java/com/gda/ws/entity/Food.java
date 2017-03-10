@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "food", schema = "", catalog = "foodapp")
 public class Food {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

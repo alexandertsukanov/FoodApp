@@ -14,12 +14,12 @@ public class History {
 	
 	@Column(name = "order_id")
     private Long orderId;
-	
-	@Column(name = "order_user_id1")
-    private Long orderUserId;
-	
-	@Column(name = "order_order_status_id")
-    private Long orderOrderStatusId;
+
+	@Column(name = "order_user_id")
+	private Long orderUserId;
+
+	@Column(name = "order_status_id")
+	private Long orderOrderStatusId;
 
 	public Long getId() {
 		return id;
