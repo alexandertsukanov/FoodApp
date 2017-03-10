@@ -3,7 +3,7 @@ package com.gda.ws.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "food")
+@Table(name = "food", schema = "", catalog = "foodapp")
 public class Food {
 	
 	@Id
@@ -87,5 +87,20 @@ public class Food {
 
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+
+	@Override
+	public String toString() {
+		return "Food{" +
+				"calories='" + calories + '\'' +
+				", id=" + id +
+				", categoryId=" + categoryId +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				", imageLink='" + imageLink + '\'' +
+				", weight='" + weight + '\'' +
+				", ingredients='" + ingredients + '\'' +
+				", price='" + price + '\'' +
+				'}';
 	}
 }

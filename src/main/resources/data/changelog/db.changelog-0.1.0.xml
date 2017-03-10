@@ -72,7 +72,7 @@
 
         <createTable tableName="order">
             <column name="id" type="bigint(20)" autoIncrement="false">
-                <constraints nullable="false"/>
+
             </column>
             <column name="food_id" type="bigint(20)">
                 <constraints references="food(id)" foreignKeyName="fk_order_2_food_id" deleteCascade="true"
@@ -99,26 +99,24 @@
                 <constraints references="user(id)" foreignKeyName="fk_history_2_user_id" deleteCascade="true"
                              nullable="false"/>
             </column>
-            <column name="order_order_status_id" type="bigint(20)">
+            <column name="order_status_id" type="bigint(20)">
                 <constraints references="order_status(id)" foreignKeyName="fk_history_2_status_id" deleteCascade="true"
                              nullable="false"/>
             </column>
             <column name="order_id" type="bigint(20)">
-                <constraints references="order(id)" foreignKeyName="fk_history_2_food_id" deleteCascade="true"
-                             nullable="false"/>
+
             </column>
         </createTable>
 
         <createTable tableName="order_info">
-            <column name="id" autoIncrement="true">
+            <column name="id" type="bigint(20)" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="order_id">
-                <constraints references="order(id)" foreignKeyName="fk_order_info_2_order_id" deleteCascade="true"
-                             nullable="false"/>
+            <column name="order_id" type="bigint(20)">
+
             </column>
-            <column name="adress" type="varchar(200)">
-                <constraints nullable="false"/>
+            <column name="address" type="varchar(200)">
+                <constraints nullable="true"/>
             </column>
             <column name="phone" type="varchar(200)">
                 <constraints nullable="true"/>

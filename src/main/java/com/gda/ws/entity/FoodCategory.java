@@ -3,7 +3,7 @@ package com.gda.ws.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "food_category")
+@Table(name = "food_category", schema = "", catalog = "foodapp")
 public class FoodCategory {
 
 	@Id

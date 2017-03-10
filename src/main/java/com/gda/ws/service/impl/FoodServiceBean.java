@@ -2,12 +2,16 @@ package com.gda.ws.service.impl;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.entity.Cart;
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.entity.Order;
 import com.gda.ws.forms.CategoryForm;
 import com.gda.ws.forms.FoodForm;
 import com.gda.ws.repository.FoodCategoryRepository;
 import com.gda.ws.repository.FoodRepository;
+import com.gda.ws.repository.OrderInfoRepository;
+import com.gda.ws.repository.OrderRepository;
 import com.gda.ws.service.FoodService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
@@ -29,6 +33,12 @@ public class FoodServiceBean implements FoodService {
 
 	@Autowired
 	private FoodRepository foodRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
+
+	@Autowired
+	private OrderInfoRepository orderInfoRepository;
 
 	@Override
 	public FoodDto findOneFood(Long id) {
@@ -155,5 +165,18 @@ public class FoodServiceBean implements FoodService {
 		return dto;
 	}
 
-
+	@Override
+	public void saveCart(Cart cart) {
+		int counter = 0;
+		for (Food food : cart.getEntityFoodList()) {
+			Order order = new Order();
+			order.setOrderId(1L);
+			order.setFoodId(food.getCategoryId());
+			order.setStatusId(2L);
+			order.setUserId(1L);
+			order.setQuantity(Long.valueOf(cart.getIntegerListCount().get(counter++)));
+			orderRepository.save(order);
+		}
+		orderInfoRepository.save(cart.getEntityOrderInfo());
+	}
 }

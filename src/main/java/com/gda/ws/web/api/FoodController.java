@@ -2,7 +2,9 @@ package com.gda.ws.web.api;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.entity.Food;
+import com.gda.ws.entity.Cart;
+import com.gda.ws.repository.OrderInfoRepository;
+import com.gda.ws.repository.OrderRepository;
 import com.gda.ws.service.FoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 @RestController
 public class FoodController {
@@ -22,6 +23,12 @@ public class FoodController {
 
     @Autowired
     private FoodService service;
+
+    @Autowired
+    private OrderRepository orderRepository;
+    //
+    @Autowired
+    private OrderInfoRepository orderInfoRepository;
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
@@ -29,8 +36,10 @@ public class FoodController {
      * @return A ResponseEntity containing a Collection of objects.
      */
 
-    @RequestMapping(value = "/api/card-save", method = RequestMethod.POST)
-    public void saveOrder(@RequestBody HashMap<Food, Integer> hashMap) {
+    @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
+    public void saveOrder(@RequestBody Cart cart) {
+        LOG.info("Saving cart...");
+        service.saveCart(cart);
     }
 
     @RequestMapping(value = "/api/food-categories",
