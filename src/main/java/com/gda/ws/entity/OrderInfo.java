@@ -1,6 +1,7 @@
 package com.gda.ws.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_info", schema = "", catalog = "foodapp")
@@ -9,8 +10,6 @@ public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "order_id")
-    private Long orderId;
     @Column(name = "address")
     private String phone;
     @Column(name = "phone")
@@ -19,8 +18,8 @@ public class OrderInfo {
     public OrderInfo() {
     }
 
-    public OrderInfo(int orderId, String phone, String address) {
-        this.orderId = id;
+    public OrderInfo(long id, String phone, String address) {
+        this.id = id;
         this.phone = phone;
         this.address = address;
     }
@@ -34,11 +33,11 @@ public class OrderInfo {
     }
 
     public Long getOrderId() {
-        return orderId;
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Long id) {
+        this.id = id;
     }
 
     public String getPhone() {
@@ -64,14 +63,14 @@ public class OrderInfo {
 
         OrderInfo that = (OrderInfo) o;
 
-        return id == that.id;
+        return Objects.equals(id, that.id);
 
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (orderId != null ? orderId.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;

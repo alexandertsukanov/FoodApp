@@ -8,48 +8,48 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "history", schema = "", catalog = "foodapp")
 public class History {
-	
-	@Id
+
+    @Id
     private Long id;
-	
-	@Column(name = "order_id")
+
+    @Column(name = "order_id")
     private Long orderId;
 
-	@Column(name = "order_user_id")
-	private Long orderUserId;
+    @Column(name = "order_user_id")
+    private Long orderUserId;
 
-	@Column(name = "order_status_id")
-	private Long orderOrderStatusId;
+    @Column(name = "order_status_id")
+    private Long orderOrderStatusId;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getOrderId() {
-		return orderId;
-	}
+    public Long getOrderId() {
+        return orderId;
+    }
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
-	public Long getOrderUserId() {
-		return orderUserId;
-	}
+    public Long getOrderUserId() {
+        return orderUserId;
+    }
 
-	public void setOrderUserId(Long orderUserId) {
-		this.orderUserId = orderUserId;
-	}
+    public void setOrderUserId(Long orderUserId) {
+        this.orderUserId = orderUserId;
+    }
 
-	public Long getOrderOrderStatusId() {
-		return orderOrderStatusId;
-	}
+    public Long getOrderOrderStatusId() {
+        return orderOrderStatusId;
+    }
 
-	public void setOrderOrderStatusId(Long orderOrderStatusId) {
-		this.orderOrderStatusId = orderOrderStatusId;
-	}
+    public void setOrderOrderStatusId(Long orderOrderStatusId) {
+        this.orderOrderStatusId = orderOrderStatusId;
+    }
 }

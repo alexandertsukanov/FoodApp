@@ -2,17 +2,20 @@ package com.gda.ws.web.api;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.entity.Cart;
 import com.gda.ws.repository.OrderInfoRepository;
 import com.gda.ws.repository.OrderRepository;
 import com.gda.ws.service.FoodService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
@@ -29,6 +32,9 @@ public class FoodController {
     //
     @Autowired
     private OrderInfoRepository orderInfoRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
@@ -36,10 +42,10 @@ public class FoodController {
      * @return A ResponseEntity containing a Collection of objects.
      */
 
-    @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
-    public void saveOrder(@RequestBody Cart cart) {
+    @RequestMapping(value = "/api/cart-save", method = RequestMethod.GET)
+    public void saveOrder() {
         LOG.info("Saving cart...");
-        service.saveCart(cart);
+//        return service.saveCart(cart);
     }
 
     @RequestMapping(value = "/api/food-categories",

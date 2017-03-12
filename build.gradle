@@ -24,12 +24,11 @@ repositories {
 }
 
 dependencies {
-
+    compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '0.7.7'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-    // https://mvnrepository.com/artifact/org.sitemesh/sitemesh
     compile group: 'org.sitemesh', name: 'sitemesh', version: '3.0.1'
     compile group: 'org.springframework', name: 'spring-context-support'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda'
@@ -38,10 +37,7 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
     compile group: 'javax.servlet', name: 'javax.servlet-api'
-    // https://mvnrepository.com/artifact/jstl/jstl
     compile group: 'jstl', name: 'jstl', version: '1.2'
-//  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-eureka', version: '1.2.0.RELEASE'
-    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-hystrix
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix', version: '1.2.5.RELEASE'
 
     runtime group: 'mysql', name: 'mysql-connector-java'

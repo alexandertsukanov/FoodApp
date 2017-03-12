@@ -32,7 +32,6 @@ public class FoodViewController {
     @RequestMapping(value = "/food", method = RequestMethod.GET)
     String getFood(Model model) {
         model.addAttribute("food", foodService.findAllfood());
-        model.addAttribute("categories", foodService.foodCategories());
         return "food";
     }
 

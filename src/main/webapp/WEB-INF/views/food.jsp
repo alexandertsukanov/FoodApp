@@ -32,7 +32,7 @@
     <c:forEach var="food" items="${food}">
         <tr>
             <td>${food.id}</td>
-            <td>${categories[food.categoryId-1].name}</td>
+            <td>${food.foodCategoryByCategoryId.name}</td>
             <td>${food.title}</td>
             <td>${food.description}</td>
             <td>${food.ingredients}</td>

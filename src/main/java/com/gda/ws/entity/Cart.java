@@ -11,7 +11,6 @@ public class Cart {
 
     private List<Food> entityFoodList;
 
-
     private List<Integer> integerListCount;
 
     private OrderInfo entityOrderInfo;

@@ -1,5 +1,10 @@
 package com.gda.ws.dto;
 
+import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.entity.OrderFood;
+
+import java.util.Collection;
+
 public class FoodDto {
 
     private Long id;
@@ -19,6 +24,10 @@ public class FoodDto {
     private String price;
 
     private String calories;
+
+    private FoodCategory foodCategoryByCategoryId;
+
+    private Collection<OrderFood> orderFoodsById;
 
     public Long getId() {
         return id;
@@ -91,4 +100,20 @@ public class FoodDto {
     public void setWeight(String weight) {
         this.weight = weight;
     }
+
+    public FoodCategory getFoodCategoryByCategoryId() {
+        return foodCategoryByCategoryId;
+    }
+
+    public void setFoodCategoryByCategoryId(FoodCategory foodCategoryByCategoryId) {
+        this.foodCategoryByCategoryId = foodCategoryByCategoryId;
+    }
+
+//    public Collection<OrderFood> getOrderFoodsById() {
+//        return orderFoodsById;
+//    }
+//
+//    public void setOrderFoodsById(Collection<OrderFood> orderFoodsById) {
+//        this.orderFoodsById = orderFoodsById;
+//    }
 }

@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public interface FoodService {
 
-    void saveCart(Cart cart);
+    Cart saveCart(Cart cart);
 
     FoodDto findOneFood(Long id);
 
