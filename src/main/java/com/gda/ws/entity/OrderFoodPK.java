@@ -5,11 +5,16 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 public class OrderFoodPK implements Serializable {
+
+    @Id
+    @Column(name = "order_id")
     private Long orderId;
+
+    @Id
+    @Column(name = "food_id")
     private Long foodId;
 
-    @Column(name = "order_id")
-    @Id
+
     public Long getOrderId() {
         return orderId;
     }
@@ -18,8 +23,6 @@ public class OrderFoodPK implements Serializable {
         this.orderId = orderId;
     }
 
-    @Column(name = "food_id")
-    @Id
     public Long getFoodId() {
         return foodId;
     }

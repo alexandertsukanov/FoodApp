@@ -40,6 +40,6 @@
             <form:input class="form-control" id="imageLink" path="imageLink" type="text" required="true"/>
         </div>
         <form:button type="submit" class="btn btn-info btn-md">Save</form:button>
-        <a href="/food" class="btn btn-info btn-md">Cancel</a>
+        <a href="${pageContext.request.contextPath}/food" class="btn btn-info btn-md">Cancel</a>
     </form:form>
 </div>

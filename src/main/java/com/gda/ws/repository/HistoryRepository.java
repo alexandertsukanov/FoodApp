@@ -12,7 +12,7 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
 
     User findUserByOrderUserId(Long id);
 
-    OrderStatus findOrderStatusByOrderOrderStatusId(Long id);
+    OrderStatus findOrderStatusByOrderStatusId(Long id);
 
     Order findOrderByOrderId(Long id);
 

@@ -1,5 +1,6 @@
 package com.gda.ws.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.entity.Food;
 
 import java.util.Collection;
@@ -39,6 +40,7 @@ public class FoodCategoryDto {
 		this.linkBig = linkBig;
 	}
 
+	@JsonIgnore
 	public Collection<Food> getFoodsById() {
 		return foodsById;
 	}

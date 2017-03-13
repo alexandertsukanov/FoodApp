@@ -10,6 +10,7 @@ import javax.persistence.Table;
 public class History {
 
     @Id
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "order_id")
@@ -19,7 +20,7 @@ public class History {
     private Long orderUserId;
 
     @Column(name = "order_status_id")
-    private Long orderOrderStatusId;
+    private Long orderStatusId;
 
     public Long getId() {
         return id;
@@ -45,11 +46,11 @@ public class History {
         this.orderUserId = orderUserId;
     }
 
-    public Long getOrderOrderStatusId() {
-        return orderOrderStatusId;
+    public Long getOrderStatusId() {
+        return orderStatusId;
     }
 
-    public void setOrderOrderStatusId(Long orderOrderStatusId) {
-        this.orderOrderStatusId = orderOrderStatusId;
+    public void setOrderStatusId(Long orderOrderStatusId) {
+        this.orderStatusId = orderOrderStatusId;
     }
 }

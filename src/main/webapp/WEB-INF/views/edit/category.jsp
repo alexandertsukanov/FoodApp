@@ -18,6 +18,6 @@
             <form:input class="form-control" id="linkBig" path="linkBig" type="text" required="true"/>
         </div>
         <form:button type="submit" class="btn btn-info btn-md">Save</form:button>
-        <a href="/category" class="btn btn-info btn-md">Cancel</a>
+        <a href="${pageContext.request.contextPath}/category" class="btn btn-info btn-md">Cancel</a>
     </form:form>
 </div>

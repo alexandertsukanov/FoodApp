@@ -1,5 +1,6 @@
 package com.gda.ws.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.entity.FoodCategory;
 import com.gda.ws.entity.OrderFood;
 
@@ -101,6 +102,7 @@ public class FoodDto {
         this.weight = weight;
     }
 
+    @JsonIgnore
     public FoodCategory getFoodCategoryByCategoryId() {
         return foodCategoryByCategoryId;
     }
@@ -109,11 +111,4 @@ public class FoodDto {
         this.foodCategoryByCategoryId = foodCategoryByCategoryId;
     }
 
-//    public Collection<OrderFood> getOrderFoodsById() {
-//        return orderFoodsById;
-//    }
-//
-//    public void setOrderFoodsById(Collection<OrderFood> orderFoodsById) {
-//        this.orderFoodsById = orderFoodsById;
-//    }
 }

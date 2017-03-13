@@ -1,6 +1,6 @@
 package com.gda.ws.forms;
 
-public class CategoryForm {
+public class FoodCategoryForm {
     private Long id;
     private String name;
     private String link;

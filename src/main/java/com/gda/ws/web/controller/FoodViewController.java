@@ -1,6 +1,7 @@
 package com.gda.ws.web.controller;
 
-import com.gda.ws.forms.CategoryForm;
+
+import com.gda.ws.forms.FoodCategoryForm;
 import com.gda.ws.forms.FoodForm;
 import com.gda.ws.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class FoodViewController {
 
     @RequestMapping(value = "/food", method = RequestMethod.GET)
     String getFood(Model model) {
+        model.addAttribute("categories", foodService.findAllFoodCategories());
         model.addAttribute("food", foodService.findAllfood());
         return "food";
     }
@@ -38,21 +40,21 @@ public class FoodViewController {
     @RequestMapping(value = "/food/{id}", method = RequestMethod.GET)
     String getFoodById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("cat", "?cat=" + id);
-        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("categories", foodService.findAllFoodCategories());
         model.addAttribute("food", foodService.findFoodByCategory(id));
         return "food";
     }
 
     @RequestMapping(value = "/edit/food/", method = RequestMethod.GET)
     String createNewFood(Model model) {
-        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("categories", foodService.findAllFoodCategories());
         model.addAttribute("FoodForm", new FoodForm());
         return "edit/food";
     }
 
     @RequestMapping(value = "/edit/food/{id}", method = RequestMethod.GET)
     String editFoodById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("categories", foodService.findAllFoodCategories());
         model.addAttribute("FoodForm", foodService.findOneFood(id));
         return "edit/food";
     }
@@ -64,7 +66,7 @@ public class FoodViewController {
     }
 
     @RequestMapping(value = "/delete/food/{id}", method = RequestMethod.GET)
-    String deleteFood(@PathVariable("id") Long id, @RequestParam("cat") Long cat) {
+    String deleteFood(@PathVariable("id") Long id, @RequestParam(value = "cat", required = false) Long cat) {
         foodService.deleteOneFood(id);
         if (cat == null) {
             return "redirect:/food";
@@ -75,13 +77,13 @@ public class FoodViewController {
 
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     String getCategories(Model model) {
-        model.addAttribute("categories", foodService.foodCategories());
+        model.addAttribute("categories", foodService.findAllFoodCategories());
         return "categories";
     }
 
     @RequestMapping(value = "/edit/category/", method = RequestMethod.GET)
     String createNewCategory(Model model) {
-        model.addAttribute("CategoryForm", new CategoryForm());
+        model.addAttribute("CategoryForm", new FoodCategoryForm());
         return "edit/category";
     }
 
@@ -92,7 +94,7 @@ public class FoodViewController {
     }
 
     @RequestMapping(value = "/edit/category/", method = RequestMethod.POST)
-    String saveNewFoodCategory(@ModelAttribute CategoryForm categoryForm) {
+    String saveNewFoodCategory(@ModelAttribute FoodCategoryForm categoryForm) {
         foodService.saveOne(categoryForm);
         return "redirect:/category";
     }

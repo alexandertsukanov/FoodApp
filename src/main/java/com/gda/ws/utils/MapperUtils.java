@@ -4,8 +4,6 @@ import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.FoodCategory;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -13,21 +11,35 @@ import java.util.Objects;
 @Component
 public class MapperUtils {
 
-    @Autowired
-    private ModelMapper modelMapper;
 
-    public FoodCategoryDto converToFoodCategoryDto(FoodCategory entity) {
+    public FoodCategoryDto convertToFoodCategoryDto(FoodCategory entity) {
         if (Objects.isNull(entity)) {
             return null;
         }
-        return modelMapper.map(entity, FoodCategoryDto.class);
+        FoodCategoryDto foodCategoryDto = new FoodCategoryDto();
+        foodCategoryDto.setName(entity.getName());
+        foodCategoryDto.setId(entity.getId());
+        foodCategoryDto.setLink(entity.getLink());
+        foodCategoryDto.setLinkBig(entity.getLinkBig());
+        return foodCategoryDto;
     }
 
     public FoodDto convertToFoodDto(Food entity) {
         if (Objects.isNull(entity)) {
             return null;
         }
-        return modelMapper.map(entity, FoodDto.class);
+        FoodDto foodDto = new FoodDto();
+        foodDto.setId(entity.getId());
+        foodDto.setTitle(entity.getTitle());
+        foodDto.setCalories(entity.getCalories());
+        foodDto.setDescription(entity.getDescription());
+        foodDto.setIngredients(entity.getIngredients());
+        foodDto.setPrice(entity.getPrice());
+        foodDto.setWeight(entity.getWeight());
+        foodDto.setCategoryId(entity.getCategoryId());
+        foodDto.setImageLink(entity.getImageLink());
+        foodDto.setFoodCategoryByCategoryId(entity.getFoodCategoryByCategoryId());
+        return foodDto;
     }
 
 }

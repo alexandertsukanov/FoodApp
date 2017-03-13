@@ -1,28 +1,53 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.forms.FoodForm;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
+@Table(name = "food", schema = "", catalog = "foodapp")
 public class Food {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "category_id")
     private Long categoryId;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "calories")
     private String calories;
+
+    @Column(name = "ingredients")
     private String ingredients;
+
+    @Column(name = "weight")
     private String weight;
+
+    @Column(name = "price")
     private String price;
+
+    @Column(name = "image_link")
     private String imageLink;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private FoodCategory foodCategoryByCategoryId;
-    private Collection<OrderFood> orderFoodsById;
 
     public Food() {
     }
 
     public Food(FoodForm form) {
+        this.setId(form.getId());
         this.setCategoryId(form.getCategoryId());
         this.setTitle(form.getTitle());
         this.setDescription(form.getDescription());
@@ -33,8 +58,7 @@ public class Food {
         this.setImageLink(form.getImageLink());
     }
 
-    @Id
-    @Column(name = "id")
+
     public Long getId() {
         return id;
     }
@@ -43,8 +67,7 @@ public class Food {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "category_id")
+
     public Long getCategoryId() {
         return categoryId;
     }
@@ -53,8 +76,7 @@ public class Food {
         this.categoryId = categoryId;
     }
 
-    @Basic
-    @Column(name = "title")
+
     public String getTitle() {
         return title;
     }
@@ -63,8 +85,7 @@ public class Food {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "description")
+
     public String getDescription() {
         return description;
     }
@@ -73,8 +94,7 @@ public class Food {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "calories")
+
     public String getCalories() {
         return calories;
     }
@@ -83,8 +103,7 @@ public class Food {
         this.calories = calories;
     }
 
-    @Basic
-    @Column(name = "ingredients")
+
     public String getIngredients() {
         return ingredients;
     }
@@ -93,8 +112,7 @@ public class Food {
         this.ingredients = ingredients;
     }
 
-    @Basic
-    @Column(name = "weight")
+
     public String getWeight() {
         return weight;
     }
@@ -103,8 +121,7 @@ public class Food {
         this.weight = weight;
     }
 
-    @Basic
-    @Column(name = "price")
+
     public String getPrice() {
         return price;
     }
@@ -113,8 +130,7 @@ public class Food {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "image_link")
+
     public String getImageLink() {
         return imageLink;
     }
@@ -157,22 +173,11 @@ public class Food {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public FoodCategory getFoodCategoryByCategoryId() {
         return foodCategoryByCategoryId;
     }
 
     public void setFoodCategoryByCategoryId(FoodCategory foodCategoryByCategoryId) {
         this.foodCategoryByCategoryId = foodCategoryByCategoryId;
-    }
-
-    @OneToMany(mappedBy = "foodByFoodId")
-    public Collection<OrderFood> getOrderFoodsById() {
-        return orderFoodsById;
-    }
-
-    public void setOrderFoodsById(Collection<OrderFood> orderFoodsById) {
-        this.orderFoodsById = orderFoodsById;
     }
 }

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="btn-group">
-    <a href="/edit/category/" class="btn btn-info">Add Category</a>
+    <a href="${pageContext.request.contextPath}/edit/category/" class="btn btn-info">Add Category</a>
 </div>
 <br>
 <br>
@@ -21,8 +21,10 @@
                                                   src="${categories.link}"/></a></td>
             <td><a href="${categories.linkBig}"><img class="thumbnail" style="height: 60px; width: 70px"
                                                      src="${categories.linkBig}"/></a></td>
-            <td><a href="/edit/category/${categories.id}" class="btn btn-info btn-md">Edit</a></td>
-            <td><a href="/delete/category/${categories.id}" class="btn btn-danger btn-md">X</a></td>
+            <td><a href="${pageContext.request.contextPath}/edit/category/${categories.id}" class="btn btn-info btn-md">Edit</a>
+            </td>
+            <td><a href="${pageContext.request.contextPath}/delete/category/${categories.id}"
+                   class="btn btn-danger btn-md">X</a></td>
         </tr>
     </c:forEach>
 </table>

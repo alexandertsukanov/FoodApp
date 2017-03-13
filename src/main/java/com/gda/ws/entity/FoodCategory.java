@@ -1,5 +1,8 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gda.ws.forms.FoodCategoryForm;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -10,16 +13,31 @@ public class FoodCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(name = "name")
     private String name;
+
 	@Column(name = "link")
     private String link;
+
 	@Column(name = "link_big")
 	private String linkBig;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "foodCategoryByCategoryId")
 	private Collection<Food> foodsById;
 
-	@Id
-	@Column(name = "id")
+	public FoodCategory() {
+	}
+
+	public FoodCategory(FoodCategoryForm form) {
+		this.setId(form.getId());
+		this.setName(form.getName());
+		this.setLink(form.getLink());
+		this.setLinkBig(form.getLinkBig());
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -28,8 +46,6 @@ public class FoodCategory {
 		this.id = id;
 	}
 
-	@Basic
-	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
@@ -38,8 +54,6 @@ public class FoodCategory {
 		this.name = name;
 	}
 
-	@Basic
-	@Column(name = "link")
 	public String getLink() {
 		return link;
 	}
@@ -48,8 +62,6 @@ public class FoodCategory {
 		this.link = link;
 	}
 
-	@Basic
-	@Column(name = "link_big")
 	public String getLinkBig() {
 		return linkBig;
 	}
@@ -82,7 +94,7 @@ public class FoodCategory {
 		return result;
 	}
 
-	@OneToMany(mappedBy = "foodCategoryByCategoryId")
+
 	public Collection<Food> getFoodsById() {
 		return foodsById;
 	}

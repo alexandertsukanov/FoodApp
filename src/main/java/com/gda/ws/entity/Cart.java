@@ -18,7 +18,7 @@ public class Cart {
     public Cart() {
         entityFoodList = new ArrayList<>();
         integerListCount = new ArrayList<>();
-        entityOrderInfo = new OrderInfo(-1, "", "");
+        entityOrderInfo = new OrderInfo(-1L, "", "");
     }
 
     public void addFood(Food entityFood) {

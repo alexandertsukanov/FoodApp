@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="btn-group">
-    <a href="/edit/food/" class="btn btn-info">Add Food</a>
+    <a href="${pageContext.request.contextPath}/edit/food/" class="btn btn-info">Add Food</a>
 
     <div class="btn-group">
         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select category
@@ -9,7 +9,7 @@
         <ul class="dropdown-menu">
             <li><a href="/food">All</a></li>
             <c:forEach var="categories" items="${categories}">
-                <li><a href="/food/${categories.id}">${categories.name}</a></li>
+                <li><a href="${pageContext.request.contextPath}/food/${categories.id}">${categories.name}</a></li>
             </c:forEach>
         </ul>
     </div>
@@ -40,10 +40,10 @@
             <td>${food.price} $</td>
             <td><a href="${food.imageLink}"><img class="thumbnail" style="height: 50px; width: 60px"
                                                  src="${food.imageLink}"/></a></td>
-            <td><a href="/edit/food/${food.id}" class="btn btn-info btn-md">Edit</a></td>
-            <td><a href="/delete/food/${food.id}${cat}" class="btn btn-danger btn-md">X</a></td>
-
-
+            <td><a href="${pageContext.request.contextPath}/edit/food/${food.id}" class="btn btn-info btn-md">Edit</a>
+            </td>
+            <td><a href="${pageContext.request.contextPath}/delete/food/${food.id}${cat}" class="btn btn-danger btn-md">X</a>
+            </td>
         </tr>
     </c:forEach>
 </table>

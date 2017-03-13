@@ -2,20 +2,21 @@ package com.gda.ws.web.api;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.entity.Cart;
+import com.gda.ws.entity.Order;
+import com.gda.ws.entity.OrderFood;
+import com.gda.ws.entity.OrderInfo;
+import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
 import com.gda.ws.repository.OrderRepository;
 import com.gda.ws.service.FoodService;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -34,7 +35,8 @@ public class FoodController {
     private OrderInfoRepository orderInfoRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private OrderFoodRepository orderFoodRepository;
+
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
@@ -42,10 +44,27 @@ public class FoodController {
      * @return A ResponseEntity containing a Collection of objects.
      */
 
-    @RequestMapping(value = "/api/cart-save", method = RequestMethod.GET)
-    public void saveOrder() {
+    @RequestMapping(value = "/api/cart-test", method = RequestMethod.GET)
+    public void saveTestOrder() {
         LOG.info("Saving cart...");
-//        return service.saveCart(cart);
+        OrderInfo info = new OrderInfo();
+        Order order = new Order();
+        order.setId(1L);
+        order.setOrderInfoByOrderInfoId(info);
+        order.setStatusId(1L);
+        order.setUserId(1L);
+        orderRepository.save(order);
+        OrderFood orderFood = new OrderFood();
+        orderFood.setFoodId(1L);
+        orderFood.setOrderId(1L);
+        orderFood.setQuantity(1L);
+        orderFoodRepository.save(orderFood);
+    }
+
+    @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
+    public Cart saveOrder(@RequestBody Cart cart) {
+        LOG.info("Saving cart...");
+        return service.saveCart(cart);
     }
 
     @RequestMapping(value = "/api/food-categories",
@@ -53,7 +72,7 @@ public class FoodController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<FoodCategoryDto>> foodCategories() {
         LOG.info("> foodCategories");
-        Collection<FoodCategoryDto> entities = service.foodCategories();
+        Collection<FoodCategoryDto> entities = service.findAllFoodCategories();
         LOG.info("< foodCategories");
         return new ResponseEntity<Collection<FoodCategoryDto>>(entities, HttpStatus.OK);
     }
