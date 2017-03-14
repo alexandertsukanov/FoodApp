@@ -2,8 +2,10 @@ package com.gda.ws.utils;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.dto.HistoryDto;
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.FoodCategory;
+import com.gda.ws.entity.History;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -11,6 +13,18 @@ import java.util.Objects;
 @Component
 public class MapperUtils {
 
+
+    public HistoryDto convertToHistoryDto(History entity) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+        HistoryDto historyDto = new HistoryDto();
+        historyDto.setId(entity.getId());
+        historyDto.setOrderUser(entity.getUser());
+        historyDto.setOrder(entity.getOrder());
+        historyDto.setOrderStatus(entity.getOrderStatus());
+        return historyDto;
+    }
 
     public FoodCategoryDto convertToFoodCategoryDto(FoodCategory entity) {
         if (Objects.isNull(entity)) {

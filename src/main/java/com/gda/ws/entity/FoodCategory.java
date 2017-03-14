@@ -1,5 +1,6 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.forms.FoodCategoryForm;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class FoodCategory {
 	@Column(name = "link_big")
 	private String linkBig;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private Collection<Food> foods;
 

@@ -14,6 +14,9 @@ public class User {
     @Column(name = "device_id")
     private String deviceId;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Order> orders;
+
     @OneToMany(mappedBy = "orderUser")
     private Collection<History> histories;
 
@@ -31,6 +34,14 @@ public class User {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public Collection<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
     }
 
     public Collection<History> getHistories() {

@@ -7,36 +7,48 @@ import java.util.Collection;
 @Table(name = "order_status", schema = "foodapp")
 public class OrderStatus {
 
-	@Id
+    @Id
     private Long id;
 
-	@Column(name = "name")
+    @Column(name = "name")
     private String name;
 
-	@OneToMany(mappedBy = "orderStatus")
-	private Collection<History> histories;
+    @OneToMany(mappedBy = "status")
+    private Collection<Order> orders;
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "orderStatus")
+    private Collection<History> histories;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public String getName() {
-		return name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Collection<History> getHistories() {
-		return histories;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setHistories(Collection<History> histories) {
-		this.histories = histories;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Collection<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Collection<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(Collection<History> histories) {
+        this.histories = histories;
+    }
 }

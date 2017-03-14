@@ -25,7 +25,7 @@ public class FoodDto {
 
     private FoodCategory category;
 
-    private Collection<OrderFood> orderFoodsById;
+    private Collection<OrderFood> orderFoods;
 
     public Long getId() {
         return id;
@@ -99,4 +99,11 @@ public class FoodDto {
         this.category = category;
     }
 
+    public Collection<OrderFood> getOrderFoods() {
+        return orderFoods;
+    }
+
+    public void setOrderFoods(Collection<OrderFood> orderFoods) {
+        this.orderFoods = orderFoods;
+    }
 }

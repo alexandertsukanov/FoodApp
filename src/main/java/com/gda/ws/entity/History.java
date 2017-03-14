@@ -1,7 +1,5 @@
 package com.gda.ws.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,17 +10,14 @@ public class History {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Order order;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_status_id", referencedColumnName = "id", nullable = false)
     private OrderStatus orderStatus;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_user_id", referencedColumnName = "id", nullable = false)
     private User orderUser;
@@ -48,10 +43,9 @@ public class History {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatusId) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-
 
     public User getUser() {
         return orderUser;

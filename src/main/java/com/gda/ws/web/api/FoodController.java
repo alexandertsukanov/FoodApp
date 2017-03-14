@@ -2,7 +2,8 @@ package com.gda.ws.web.api;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.entity.*;
+import com.gda.ws.dto.HistoryDto;
+import com.gda.ws.entity.Cart;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
@@ -37,6 +38,7 @@ public class FoodController {
 
     @Autowired
     FoodRepository foodRepository;
+
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
@@ -47,19 +49,17 @@ public class FoodController {
     @RequestMapping(value = "/api/cart-test", method = RequestMethod.GET)
     public void saveTestOrder() {
         LOG.info("Saving cart...");
-        OrderInfo info = new OrderInfo();
-        info.setAddress("My address");
-        info.setPhone("+34820984320");
-        Order order = new Order();
-        order.setOrderInfo(info);
-        order.setStatusId(1L);
-        order.setUserId(1L);
-        Food food = foodRepository.findOne(2L);
-        OrderFood orderFood = new OrderFood();
-        orderFood.setFood(food);
-        orderFood.setOrder(order);
-        orderFood.setQuantity(1L);
-        orderFoodRepository.save(orderFood);
+//        OrderInfo info = new OrderInfo();
+//        info.setAddress("My address");
+//        info.setPhone("+34820984320");
+//        Order order = new Order();
+//        order.setOrderInfo(info);
+//        Food food = foodRepository.findOne(2L);
+//        OrderFood orderFood = new OrderFood();
+//        orderFood.setFood(food);
+//        orderFood.setOrder(order);
+//        orderFood.setQuantity(1L);
+//        orderFoodRepository.save(orderFood);
     }
 
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
@@ -87,4 +87,15 @@ public class FoodController {
         LOG.info("< foodBCategory");
         return new ResponseEntity<Collection<FoodDto>>(entities, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/api/history",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<HistoryDto>> findHistory() {
+        LOG.info("> foodByCategory");
+        Collection<HistoryDto> entities = service.findAllHistory();
+        LOG.info("< foodBCategory");
+        return new ResponseEntity<Collection<HistoryDto>>(entities, HttpStatus.OK);
+    }
+
 }

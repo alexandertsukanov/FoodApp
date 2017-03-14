@@ -2,6 +2,7 @@ package com.gda.ws.service.impl;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.dto.HistoryDto;
 import com.gda.ws.entity.*;
 import com.gda.ws.forms.FoodCategoryForm;
 import com.gda.ws.forms.FoodForm;
@@ -39,6 +40,9 @@ public class FoodServiceBean implements FoodService {
 
     @Autowired
     private MapperUtils mapperUtils;
+
+    @Autowired
+    private HistoryRepository historyRepository;
 
     @Override
     public void deleteOneFood(Long id) {
@@ -99,12 +103,21 @@ public class FoodServiceBean implements FoodService {
     }
 
     @Override
+    public Collection<HistoryDto> findAllHistory() {
+        LOG.info("> findAllHistory");
+        Collection<History> found = historyRepository.findAll();
+        Collection<HistoryDto> result = found.stream().map(e -> mapperUtils.convertToHistoryDto(e)).collect(Collectors.toList());
+        LOG.info("< findAllHistory");
+        return result;
+    }
+
+    @Override
     public Cart saveCart(Cart cart) {
         OrderInfo info = cart.getEntityOrderInfo();
         Order order = new Order();
-        order.setOrderInfo(info);
-        order.setStatusId(1L);
-        order.setUserId(1L);
+//        order.setOrderInfo(info);
+//        order.setStatusId(1L);
+//        order.setUserId(1L);
         order = orderRepository.save(order);
         List<Food> entityFoodList = cart.getEntityFoodList();
         for (int i = 0; i < entityFoodList.size(); i++) {

@@ -12,17 +12,19 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
-    @Column(name = "status_id")
-    private Long statusId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
+    private OrderStatus status;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_info_id", referencedColumnName = "id")
     private OrderInfo orderInfo;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private Collection<History> histories;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -36,20 +38,20 @@ public class Order {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -60,8 +62,8 @@ public class Order {
         Order order = (Order) o;
 
         if (id != null ? !id.equals(order.id) : order.id != null) return false;
-        if (userId != null ? !userId.equals(order.userId) : order.userId != null) return false;
-        if (statusId != null ? !statusId.equals(order.statusId) : order.statusId != null) return false;
+        if (user != null ? !user.equals(order.user) : order.user != null) return false;
+        if (status != null ? !status.equals(order.status) : order.status != null) return false;
 
         return true;
     }
@@ -69,8 +71,8 @@ public class Order {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (statusId != null ? statusId.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 

@@ -1,9 +1,8 @@
 package com.gda.ws.service.impl;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.gda.ws.dto.UserDto;
+import com.gda.ws.entity.User;
+import com.gda.ws.repository.UserRepository;
 import com.gda.ws.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gda.ws.entity.User;
-import com.gda.ws.repository.UserRepository;
-import com.gda.ws.dto.UserDto;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceBean implements UserService {
