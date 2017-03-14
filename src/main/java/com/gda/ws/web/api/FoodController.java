@@ -3,7 +3,7 @@ package com.gda.ws.web.api;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
 import com.gda.ws.dto.HistoryDto;
-import com.gda.ws.entity.Cart;
+import com.gda.ws.entity.*;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
@@ -49,17 +49,17 @@ public class FoodController {
     @RequestMapping(value = "/api/cart-test", method = RequestMethod.GET)
     public void saveTestOrder() {
         LOG.info("Saving cart...");
-//        OrderInfo info = new OrderInfo();
-//        info.setAddress("My address");
-//        info.setPhone("+34820984320");
-//        Order order = new Order();
-//        order.setOrderInfo(info);
-//        Food food = foodRepository.findOne(2L);
-//        OrderFood orderFood = new OrderFood();
-//        orderFood.setFood(food);
-//        orderFood.setOrder(order);
-//        orderFood.setQuantity(1L);
-//        orderFoodRepository.save(orderFood);
+        OrderInfo info = new OrderInfo();
+        info.setAddress("My address");
+        info.setPhone("+34820984320");
+        Order order = new Order();
+        order.setOrderInfo(info);
+        Food food = foodRepository.findOne(2L);
+        OrderFood orderFood = new OrderFood();
+        orderFood.setFood(food);
+        orderFood.setOrder(order);
+        orderFood.setQuantity(1L);
+        orderFoodRepository.save(orderFood);
     }
 
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
