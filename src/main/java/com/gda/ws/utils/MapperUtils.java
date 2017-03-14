@@ -17,6 +17,7 @@ public class MapperUtils {
             return null;
         }
         FoodCategoryDto foodCategoryDto = new FoodCategoryDto();
+        foodCategoryDto.setFoods(entity.getFoods());
         foodCategoryDto.setName(entity.getName());
         foodCategoryDto.setId(entity.getId());
         foodCategoryDto.setLink(entity.getLink());
@@ -36,9 +37,8 @@ public class MapperUtils {
         foodDto.setIngredients(entity.getIngredients());
         foodDto.setPrice(entity.getPrice());
         foodDto.setWeight(entity.getWeight());
-        foodDto.setCategoryId(entity.getCategoryId());
+        foodDto.setCategory(entity.getCategory());
         foodDto.setImageLink(entity.getImageLink());
-        foodDto.setFoodCategoryByCategoryId(entity.getFoodCategoryByCategoryId());
         return foodDto;
     }
 

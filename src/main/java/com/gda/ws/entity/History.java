@@ -1,26 +1,32 @@
 package com.gda.ws.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "history", schema = "", catalog = "foodapp")
+@Table(name = "history", schema = "foodapp")
 public class History {
 
     @Id
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    private Order order;
 
-    @Column(name = "order_user_id")
-    private Long orderUserId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "order_status_id", referencedColumnName = "id", nullable = false)
+    private OrderStatus orderStatus;
 
-    @Column(name = "order_status_id")
-    private Long orderStatusId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "order_user_id", referencedColumnName = "id", nullable = false)
+    private User orderUser;
+
 
     public Long getId() {
         return id;
@@ -30,27 +36,28 @@ public class History {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Long getOrderUserId() {
-        return orderUserId;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderUserId(Long orderUserId) {
-        this.orderUserId = orderUserId;
+    public void setOrderStatus(OrderStatus orderStatusId) {
+        this.orderStatus = orderStatus;
     }
 
-    public Long getOrderStatusId() {
-        return orderStatusId;
+
+    public User getUser() {
+        return orderUser;
     }
 
-    public void setOrderStatusId(Long orderOrderStatusId) {
-        this.orderStatusId = orderOrderStatusId;
+    public void setUser(User orderUser) {
+        this.orderUser = orderUser;
     }
 }

@@ -1,21 +1,18 @@
 package com.gda.ws.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.forms.FoodForm;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "food", schema = "", catalog = "foodapp")
+@Table(name = "food", schema = "foodapp")
 public class Food {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "category_id")
-    private Long categoryId;
 
     @Column(name = "title")
     private String title;
@@ -39,16 +36,18 @@ public class Food {
     private String imageLink;
 
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private FoodCategory foodCategoryByCategoryId;
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private FoodCategory category;
+
+    @OneToMany(mappedBy = "food")
+    private Collection<OrderFood> orderFoods;
 
     public Food() {
     }
 
     public Food(FoodForm form) {
         this.setId(form.getId());
-        this.setCategoryId(form.getCategoryId());
+        this.setCategory(form.getCategory());
         this.setTitle(form.getTitle());
         this.setDescription(form.getDescription());
         this.setCalories(form.getCalories());
@@ -58,7 +57,6 @@ public class Food {
         this.setImageLink(form.getImageLink());
     }
 
-
     public Long getId() {
         return id;
     }
@@ -66,16 +64,6 @@ public class Food {
     public void setId(Long id) {
         this.id = id;
     }
-
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
 
     public String getTitle() {
         return title;
@@ -85,7 +73,6 @@ public class Food {
         this.title = title;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -93,7 +80,6 @@ public class Food {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getCalories() {
         return calories;
@@ -103,7 +89,6 @@ public class Food {
         this.calories = calories;
     }
 
-
     public String getIngredients() {
         return ingredients;
     }
@@ -111,7 +96,6 @@ public class Food {
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
-
 
     public String getWeight() {
         return weight;
@@ -121,7 +105,6 @@ public class Food {
         this.weight = weight;
     }
 
-
     public String getPrice() {
         return price;
     }
@@ -129,7 +112,6 @@ public class Food {
     public void setPrice(String price) {
         this.price = price;
     }
-
 
     public String getImageLink() {
         return imageLink;
@@ -147,7 +129,7 @@ public class Food {
         Food food = (Food) o;
 
         if (id != null ? !id.equals(this.id) : this.id != null) return false;
-        if (categoryId != null ? !categoryId.equals(this.categoryId) : this.categoryId != null) return false;
+        if (category != null ? !category.equals(this.category) : this.category != null) return false;
         if (title != null ? !title.equals(this.title) : this.title != null) return false;
         if (description != null ? !description.equals(this.description) : this.description != null) return false;
         if (calories != null ? !calories.equals(this.calories) : this.calories != null) return false;
@@ -162,7 +144,7 @@ public class Food {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (calories != null ? calories.hashCode() : 0);
@@ -173,11 +155,19 @@ public class Food {
         return result;
     }
 
-    public FoodCategory getFoodCategoryByCategoryId() {
-        return foodCategoryByCategoryId;
+    public FoodCategory getCategory() {
+        return category;
     }
 
-    public void setFoodCategoryByCategoryId(FoodCategory foodCategoryByCategoryId) {
-        this.foodCategoryByCategoryId = foodCategoryByCategoryId;
+    public void setCategory(FoodCategory category) {
+        this.category = category;
+    }
+
+    public Collection<OrderFood> getOrderFoods() {
+        return orderFoods;
+    }
+
+    public void setOrderFoods(Collection<OrderFood> orderFoods) {
+        this.orderFoods = orderFoods;
     }
 }

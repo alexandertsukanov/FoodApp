@@ -1,12 +1,10 @@
 package com.gda.ws.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "order_status", schema = "", catalog = "foodapp")
+@Table(name = "order_status", schema = "foodapp")
 public class OrderStatus {
 
 	@Id
@@ -14,17 +12,31 @@ public class OrderStatus {
 
 	@Column(name = "name")
     private String name;
-	
+
+	@OneToMany(mappedBy = "orderStatus")
+	private Collection<History> histories;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Collection<History> getHistories() {
+		return histories;
+	}
+
+	public void setHistories(Collection<History> histories) {
+		this.histories = histories;
 	}
 }

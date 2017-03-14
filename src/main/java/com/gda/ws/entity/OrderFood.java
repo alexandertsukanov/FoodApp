@@ -3,38 +3,34 @@ package com.gda.ws.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_food", schema = "", catalog = "foodapp")
-@IdClass(OrderFoodPK.class)
+@Table(name = "order_food", schema = "foodapp")
 public class OrderFood {
 
     @Id
-    @Column(name = "order_id")
-    private Long orderId;
-
-    @Id
-    @Column(name = "food_id")
-    private Long foodId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     @Basic
     @Column(name = "quantity")
     private Long quantity;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false)
+    private Food food;
 
-    public Long getOrderId() {
-        return orderId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    private Order order;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getFoodId() {
-        return foodId;
-    }
-
-    public void setFoodId(Long foodId) {
-        this.foodId = foodId;
-    }
 
     public Long getQuantity() {
         return quantity;
@@ -51,8 +47,7 @@ public class OrderFood {
 
         OrderFood orderFood = (OrderFood) o;
 
-        if (orderId != null ? !orderId.equals(orderFood.orderId) : orderFood.orderId != null) return false;
-        if (foodId != null ? !foodId.equals(orderFood.foodId) : orderFood.foodId != null) return false;
+        if (id != null ? !id.equals(orderFood.id) : orderFood.id != null) return false;
         if (quantity != null ? !quantity.equals(orderFood.quantity) : orderFood.quantity != null) return false;
 
         return true;
@@ -60,9 +55,26 @@ public class OrderFood {
 
     @Override
     public int hashCode() {
-        int result = orderId != null ? orderId.hashCode() : 0;
-        result = 31 * result + (foodId != null ? foodId.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         return result;
+    }
+
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

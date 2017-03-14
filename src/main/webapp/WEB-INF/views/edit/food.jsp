@@ -5,10 +5,10 @@
 <div class="col-md-6 col-md-offset-3">
     <form:form method="post" modelAttribute="FoodForm" action="/edit/food/">
         <form:hidden path="id"></form:hidden>
-        <label for="categoryId">Category</label>
-        <form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="categoryId" path="categoryId">
+        <label for="category">Category</label>
+        <form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="category" path="category">
             <c:forEach var="categories" items="${categories}">
-                <option value="${categories.id}" ${categories.id == FoodForm.categoryId ? 'selected="selected"' : ''}>${categories.name}</option>
+                <option value="${categories.id}" ${categories.id == FoodForm.category.id ? 'selected="selected"' : ''}>${categories.name}</option>
             </c:forEach>
         </form:select>
         <div class="form-group">

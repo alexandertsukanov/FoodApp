@@ -1,9 +1,10 @@
 package com.gda.ws.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "order", schema = "", catalog = "foodapp")
+@Table(name = "order", schema = "foodapp")
 public class Order {
 
     @Id
@@ -11,18 +12,21 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic
     @Column(name = "user_id")
     private Long userId;
 
-    @Basic
     @Column(name = "status_id")
     private Long statusId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_info_id", referencedColumnName = "id")
-    private OrderInfo orderInfoByOrderInfoId;
+    private OrderInfo orderInfo;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private Collection<History> histories;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private Collection<OrderFood> orderFoods;
 
     public Long getId() {
         return id;
@@ -32,7 +36,6 @@ public class Order {
         this.id = id;
     }
 
-
     public Long getUserId() {
         return userId;
     }
@@ -40,7 +43,6 @@ public class Order {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
 
     public Long getStatusId() {
         return statusId;
@@ -72,12 +74,28 @@ public class Order {
         return result;
     }
 
-    public OrderInfo getOrderInfoByOrderInfoId() {
-        return orderInfoByOrderInfoId;
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
     }
 
-    public void setOrderInfoByOrderInfoId(OrderInfo orderInfoByOrderInfoId) {
-        this.orderInfoByOrderInfoId = orderInfoByOrderInfoId;
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 
+    public Collection<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(Collection<History> histories) {
+        this.histories = histories;
+    }
+
+
+    public Collection<OrderFood> getOrderFoods() {
+        return orderFoods;
+    }
+
+    public void setOrderFoods(Collection<OrderFood> orderFoods) {
+        this.orderFoods = orderFoods;
+    }
 }

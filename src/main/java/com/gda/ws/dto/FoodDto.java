@@ -1,6 +1,5 @@
 package com.gda.ws.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.entity.FoodCategory;
 import com.gda.ws.entity.OrderFood;
 
@@ -9,8 +8,6 @@ import java.util.Collection;
 public class FoodDto {
 
     private Long id;
-
-    private Long categoryId;
 
     private String title;
 
@@ -26,7 +23,7 @@ public class FoodDto {
 
     private String calories;
 
-    private FoodCategory foodCategoryByCategoryId;
+    private FoodCategory category;
 
     private Collection<OrderFood> orderFoodsById;
 
@@ -36,14 +33,6 @@ public class FoodDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getTitle() {
@@ -102,13 +91,12 @@ public class FoodDto {
         this.weight = weight;
     }
 
-    @JsonIgnore
-    public FoodCategory getFoodCategoryByCategoryId() {
-        return foodCategoryByCategoryId;
+    public FoodCategory getCategory() {
+        return category;
     }
 
-    public void setFoodCategoryByCategoryId(FoodCategory foodCategoryByCategoryId) {
-        this.foodCategoryByCategoryId = foodCategoryByCategoryId;
+    public void setCategory(FoodCategory category) {
+        this.category = category;
     }
 
 }

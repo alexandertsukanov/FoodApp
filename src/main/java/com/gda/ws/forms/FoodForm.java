@@ -1,11 +1,13 @@
 package com.gda.ws.forms;
 
+import com.gda.ws.entity.FoodCategory;
+
 public class FoodForm {
 
 
     private Long id;
 
-    private Long categoryId;
+    private FoodCategory category;
 
     private String title;
 
@@ -29,12 +31,12 @@ public class FoodForm {
         this.calories = calories;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public FoodCategory getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(FoodCategory category) {
+        this.category = category;
     }
 
     public String getDescription() {

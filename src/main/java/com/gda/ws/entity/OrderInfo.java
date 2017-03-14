@@ -5,7 +5,7 @@ import java.util.Collection;
 
 @Entity
 
-@Table(name = "order_info", schema = "", catalog = "foodapp")
+@Table(name = "order_info", schema = "foodapp")
 public class OrderInfo {
 
     @Id
@@ -19,8 +19,8 @@ public class OrderInfo {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "orderInfoByOrderInfoId", cascade = CascadeType.ALL)
-    private Collection<Order> ordersById;
+    @OneToMany(mappedBy = "orderInfo", cascade = CascadeType.ALL)
+    private Collection<Order> orders;
 
     public OrderInfo() {
 
@@ -80,11 +80,11 @@ public class OrderInfo {
         return result;
     }
 
-    public Collection<Order> getOrdersById() {
-        return ordersById;
+    public Collection<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrdersById(Collection<Order> ordersById) {
-        this.ordersById = ordersById;
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
     }
 }

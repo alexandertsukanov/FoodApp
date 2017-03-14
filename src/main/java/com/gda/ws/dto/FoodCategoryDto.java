@@ -11,7 +11,9 @@ public class FoodCategoryDto {
     private String name;
     private String link;
 	private String linkBig;
-	private Collection<Food> foodsById;
+
+	@JsonIgnore
+	private Collection<Food> foods;
 
 	public Long getId() {
 		return id;
@@ -19,6 +21,7 @@ public class FoodCategoryDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,12 +43,11 @@ public class FoodCategoryDto {
 		this.linkBig = linkBig;
 	}
 
-	@JsonIgnore
-	public Collection<Food> getFoodsById() {
-		return foodsById;
+	public Collection<Food> getFoods() {
+		return foods;
 	}
 
-	public void setFoodsById(Collection<Food> foodsById) {
-		this.foodsById = foodsById;
+	public void setFoods(Collection<Food> foods) {
+		this.foods = foods;
 	}
 }

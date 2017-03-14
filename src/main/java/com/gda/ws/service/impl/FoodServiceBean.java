@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 @Service
 public class FoodServiceBean implements FoodService {
 
-    private long counter = 1;
-
     private static final Logger LOG = LoggerFactory.getLogger(FoodServiceBean.class);
 
     @Autowired
@@ -104,7 +102,7 @@ public class FoodServiceBean implements FoodService {
     public Cart saveCart(Cart cart) {
         OrderInfo info = cart.getEntityOrderInfo();
         Order order = new Order();
-        order.setOrderInfoByOrderInfoId(info);
+        order.setOrderInfo(info);
         order.setStatusId(1L);
         order.setUserId(1L);
         order = orderRepository.save(order);
@@ -112,12 +110,12 @@ public class FoodServiceBean implements FoodService {
         for (int i = 0; i < entityFoodList.size(); i++) {
             Food food = entityFoodList.get(i);
             OrderFood orderFood = new OrderFood();
-            orderFood.setFoodId(food.getId());
-            orderFood.setOrderId(order.getId());
+            orderFood.setFood(food);
+            orderFood.setOrder(order);
             orderFood.setQuantity(Long.valueOf(cart.getIntegerListCount().get(i)));
             orderFoodRepository.save(orderFood);
         }
-        cart.setEntityOrderInfo(order.getOrderInfoByOrderInfoId());
+        cart.setEntityOrderInfo(order.getOrderInfo());
         return cart;
     }
 }

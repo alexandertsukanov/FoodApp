@@ -1,13 +1,12 @@
 package com.gda.ws.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.forms.FoodCategoryForm;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "food_category", schema = "", catalog = "foodapp")
+@Table(name = "food_category", schema = "foodapp")
 public class FoodCategory {
 
 	@Id
@@ -23,9 +22,8 @@ public class FoodCategory {
 	@Column(name = "link_big")
 	private String linkBig;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "foodCategoryByCategoryId")
-	private Collection<Food> foodsById;
+	@OneToMany(mappedBy = "category")
+	private Collection<Food> foods;
 
 	public FoodCategory() {
 	}
@@ -36,7 +34,6 @@ public class FoodCategory {
 		this.setLink(form.getLink());
 		this.setLinkBig(form.getLinkBig());
 	}
-
 
 	public Long getId() {
 		return id;
@@ -95,11 +92,11 @@ public class FoodCategory {
 	}
 
 
-	public Collection<Food> getFoodsById() {
-		return foodsById;
+	public Collection<Food> getFoods() {
+		return foods;
 	}
 
-	public void setFoodsById(Collection<Food> foodsById) {
-		this.foodsById = foodsById;
+	public void setFoods(Collection<Food> foods) {
+		this.foods = foods;
 	}
 }

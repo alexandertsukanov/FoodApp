@@ -2,10 +2,8 @@ package com.gda.ws.web.api;
 
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.entity.Cart;
-import com.gda.ws.entity.Order;
-import com.gda.ws.entity.OrderFood;
-import com.gda.ws.entity.OrderInfo;
+import com.gda.ws.entity.*;
+import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
 import com.gda.ws.repository.OrderRepository;
@@ -37,6 +35,8 @@ public class FoodController {
     @Autowired
     private OrderFoodRepository orderFoodRepository;
 
+    @Autowired
+    FoodRepository foodRepository;
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.
@@ -48,15 +48,16 @@ public class FoodController {
     public void saveTestOrder() {
         LOG.info("Saving cart...");
         OrderInfo info = new OrderInfo();
+        info.setAddress("My address");
+        info.setPhone("+34820984320");
         Order order = new Order();
-        order.setId(1L);
-        order.setOrderInfoByOrderInfoId(info);
+        order.setOrderInfo(info);
         order.setStatusId(1L);
         order.setUserId(1L);
-        orderRepository.save(order);
+        Food food = foodRepository.findOne(2L);
         OrderFood orderFood = new OrderFood();
-        orderFood.setFoodId(1L);
-        orderFood.setOrderId(1L);
+        orderFood.setFood(food);
+        orderFood.setOrder(order);
         orderFood.setQuantity(1L);
         orderFoodRepository.save(orderFood);
     }
