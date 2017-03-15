@@ -22,7 +22,6 @@ public class MapperUtils {
         historyDto.setId(entity.getId());
         historyDto.setOrderUser(entity.getUser());
         historyDto.setOrder(entity.getOrder());
-        historyDto.setOrderStatus(entity.getOrderStatus());
         return historyDto;
     }
 

@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "food_category", schema = "foodapp")
+@Table(name = "food_category")
 public class FoodCategory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "name")

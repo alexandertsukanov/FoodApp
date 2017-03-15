@@ -1,10 +1,12 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "order", schema = "foodapp")
+@Table(name = "`order`")
 public class Order {
 
     @Id
@@ -21,9 +23,10 @@ public class Order {
     private OrderStatus status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_info_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_info_id", referencedColumnName = "id", nullable = false)
     private OrderInfo orderInfo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private Collection<History> histories;
 

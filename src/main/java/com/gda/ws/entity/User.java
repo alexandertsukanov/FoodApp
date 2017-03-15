@@ -1,10 +1,12 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user", schema = "foodapp")
+@Table(name = "`user`")
 public class User {
 
     @Id
@@ -14,9 +16,11 @@ public class User {
     @Column(name = "device_id")
     private String deviceId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Collection<Order> orders;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orderUser")
     private Collection<History> histories;
 

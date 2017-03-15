@@ -1,9 +1,8 @@
 package com.gda.ws.service;
 
+import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.dto.HistoryDto;
-import com.gda.ws.entity.Cart;
 import com.gda.ws.forms.FoodCategoryForm;
 import com.gda.ws.forms.FoodForm;
 
@@ -25,7 +24,7 @@ public interface FoodService {
 
     void deleteOneCategory(Long id);
 
-    Collection<HistoryDto> findAllHistory();
+    Collection<Cart> findAllHistory();
 
     Collection<FoodCategoryDto> findAllFoodCategories();
 

@@ -1,9 +1,11 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_food", schema = "foodapp")
+@Table(name = "order_food")
 public class OrderFood {
 
     @Id
@@ -15,10 +17,12 @@ public class OrderFood {
     @Column(name = "quantity")
     private Long quantity;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false)
     private Food food;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Order order;

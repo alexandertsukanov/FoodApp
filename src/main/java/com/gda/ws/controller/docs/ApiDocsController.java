@@ -1,4 +1,4 @@
-package com.gda.ws.web.docs;
+package com.gda.ws.controller.docs;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;

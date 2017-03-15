@@ -1,9 +1,10 @@
-package com.gda.ws.web.api;
+package com.gda.ws.controller.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.dto.HistoryDto;
-import com.gda.ws.entity.*;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
@@ -46,25 +47,12 @@ public class FoodController {
      * @return A ResponseEntity containing a Collection of objects.
      */
 
-    @RequestMapping(value = "/api/cart-test", method = RequestMethod.GET)
-    public void saveTestOrder() {
-        LOG.info("Saving cart...");
-        OrderInfo info = new OrderInfo();
-        info.setAddress("My address");
-        info.setPhone("+34820984320");
-        Order order = new Order();
-        order.setOrderInfo(info);
-        Food food = foodRepository.findOne(2L);
-        OrderFood orderFood = new OrderFood();
-        orderFood.setFood(food);
-        orderFood.setOrder(order);
-        orderFood.setQuantity(1L);
-        orderFoodRepository.save(orderFood);
-    }
-
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
-    public Cart saveOrder(@RequestBody Cart cart) {
+    public Cart saveOrder(@RequestBody Cart cart) throws JsonProcessingException {
         LOG.info("Saving cart...");
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(cart);
+        LOG.info(jsonInString);
         return service.saveCart(cart);
     }
 
@@ -75,7 +63,7 @@ public class FoodController {
         LOG.info("> foodCategories");
         Collection<FoodCategoryDto> entities = service.findAllFoodCategories();
         LOG.info("< foodCategories");
-        return new ResponseEntity<Collection<FoodCategoryDto>>(entities, HttpStatus.OK);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/food-categories/{id}",
@@ -85,17 +73,17 @@ public class FoodController {
         LOG.info("> foodByCategory");
         Collection<FoodDto> entities = service.findFoodByCategory(id);
         LOG.info("< foodBCategory");
-        return new ResponseEntity<Collection<FoodDto>>(entities, HttpStatus.OK);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/history",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<HistoryDto>> findHistory() {
-        LOG.info("> foodByCategory");
-        Collection<HistoryDto> entities = service.findAllHistory();
-        LOG.info("< foodBCategory");
-        return new ResponseEntity<Collection<HistoryDto>>(entities, HttpStatus.OK);
+    public ResponseEntity<Collection<Cart>> findHistory() {
+        LOG.info("> foodAllHistory");
+        Collection<Cart> entities = service.findAllHistory();
+        LOG.info("< foodAllHistory");
+        return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
 }

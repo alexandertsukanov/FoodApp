@@ -1,8 +1,8 @@
 package com.gda.ws.service.impl;
 
+import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.dto.HistoryDto;
 import com.gda.ws.entity.*;
 import com.gda.ws.forms.FoodCategoryForm;
 import com.gda.ws.forms.FoodForm;
@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,13 @@ public class FoodServiceBean implements FoodService {
     private OrderInfoRepository orderInfoRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private OrderFoodRepository orderFoodRepository;
+
+    @Autowired
+    private OrderStatusRepository orderStatusRepository;
 
     @Autowired
     private MapperUtils mapperUtils;
@@ -103,31 +110,52 @@ public class FoodServiceBean implements FoodService {
     }
 
     @Override
-    public Collection<HistoryDto> findAllHistory() {
+    public Collection<Cart> findAllHistory() {
         LOG.info("> findAllHistory");
-        Collection<History> found = historyRepository.findAll();
-        Collection<HistoryDto> result = found.stream().map(e -> mapperUtils.convertToHistoryDto(e)).collect(Collectors.toList());
+        List<History> found = historyRepository.findAll();
+        List<Cart> toSend = new ArrayList<>();
+        for (History history : found) {
+            Cart cart = new Cart();
+            List<Food> foodCollection = new ArrayList<>();
+            cart.setEntityOrderInfo(history.getOrder().getOrderInfo());
+            Collection<OrderFood> orderFoodCollection = history.getOrder().getOrderFoods();
+            for (OrderFood orderFood : orderFoodCollection) {
+                if (orderFood.getQuantity() > 0) {
+                    for (int i = 0; i < orderFood.getQuantity(); i++) {
+                        cart.addFood(orderFood.getFood());
+                    }
+                } else {
+                    cart.addFood(orderFood.getFood());
+                }
+
+            }
+            toSend.add(cart);
+        }
         LOG.info("< findAllHistory");
-        return result;
+        return toSend;
     }
 
     @Override
     public Cart saveCart(Cart cart) {
-        OrderInfo info = cart.getEntityOrderInfo();
+        OrderInfo receivedOrderInfo = cart.getEntityOrderInfo();
+        receivedOrderInfo.setId(null);
         Order order = new Order();
-//        order.setOrderInfo(info);
-//        order.setStatusId(1L);
-//        order.setUserId(1L);
-        order = orderRepository.save(order);
+        order.setOrderInfo(receivedOrderInfo);
+        order.setStatus(orderStatusRepository.findOne(1L));
+        order.setUser(userRepository.findOne(1L));
         List<Food> entityFoodList = cart.getEntityFoodList();
         for (int i = 0; i < entityFoodList.size(); i++) {
-            Food food = entityFoodList.get(i);
+            Food food = foodRepository.findOne(entityFoodList.get(i).getId());
             OrderFood orderFood = new OrderFood();
             orderFood.setFood(food);
             orderFood.setOrder(order);
             orderFood.setQuantity(Long.valueOf(cart.getIntegerListCount().get(i)));
             orderFoodRepository.save(orderFood);
         }
+        History history = new History();
+        history.setOrder(order);
+        history.setUser(userRepository.findOne(1L));
+        historyRepository.save(history);
         cart.setEntityOrderInfo(order.getOrderInfo());
         return cart;
     }

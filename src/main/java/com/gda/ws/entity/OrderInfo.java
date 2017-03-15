@@ -1,11 +1,13 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 
-@Table(name = "order_info", schema = "foodapp")
+@Table(name = "order_info")
 public class OrderInfo {
 
     @Id
@@ -19,6 +21,7 @@ public class OrderInfo {
     @Column(name = "phone")
     private String phone;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "orderInfo", cascade = CascadeType.ALL)
     private Collection<Order> orders;
 

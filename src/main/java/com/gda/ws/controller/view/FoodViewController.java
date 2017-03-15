@@ -1,4 +1,4 @@
-package com.gda.ws.web.controller;
+package com.gda.ws.controller.view;
 
 
 import com.gda.ws.forms.FoodCategoryForm;

@@ -1,12 +1,13 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.forms.FoodForm;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "food", schema = "foodapp")
+@Table(name = "food")
 public class Food {
 
     @Id
@@ -39,6 +40,7 @@ public class Food {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private FoodCategory category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "food")
     private Collection<OrderFood> orderFoods;
 
@@ -128,17 +130,16 @@ public class Food {
 
         Food food = (Food) o;
 
-        if (id != null ? !id.equals(this.id) : this.id != null) return false;
-        if (category != null ? !category.equals(this.category) : this.category != null) return false;
-        if (title != null ? !title.equals(this.title) : this.title != null) return false;
-        if (description != null ? !description.equals(this.description) : this.description != null) return false;
-        if (calories != null ? !calories.equals(this.calories) : this.calories != null) return false;
-        if (ingredients != null ? !ingredients.equals(this.ingredients) : this.ingredients != null) return false;
-        if (weight != null ? !weight.equals(this.weight) : this.weight != null) return false;
-        if (price != null ? !price.equals(this.price) : this.price != null) return false;
-        if (imageLink != null ? !imageLink.equals(this.imageLink) : this.imageLink != null) return false;
-
-        return true;
+        if (!id.equals(food.id)) return false;
+        if (!title.equals(food.title)) return false;
+        if (!description.equals(food.description)) return false;
+        if (!calories.equals(food.calories)) return false;
+        if (!ingredients.equals(food.ingredients)) return false;
+        if (!weight.equals(food.weight)) return false;
+        if (!price.equals(food.price)) return false;
+        if (!imageLink.equals(food.imageLink)) return false;
+        if (!category.equals(food.category)) return false;
+        return orderFoods.equals(food.orderFoods);
     }
 
     @Override
@@ -153,6 +154,22 @@ public class Food {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (imageLink != null ? imageLink.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", calories='" + calories + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", weight='" + weight + '\'' +
+                ", price='" + price + '\'' +
+                ", imageLink='" + imageLink + '\'' +
+                ", category=" + category +
+                ", orderFoods=" + orderFoods +
+                '}';
     }
 
     public FoodCategory getCategory() {

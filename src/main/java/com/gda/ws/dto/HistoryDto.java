@@ -1,7 +1,6 @@
 package com.gda.ws.dto;
 
 import com.gda.ws.entity.Order;
-import com.gda.ws.entity.OrderStatus;
 import com.gda.ws.entity.User;
 
 public class HistoryDto {
@@ -9,8 +8,6 @@ public class HistoryDto {
     private Long id;
 
     private Order order;
-
-    private OrderStatus orderStatus;
 
     private User orderUser;
 
@@ -36,14 +33,6 @@ public class HistoryDto {
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
 }

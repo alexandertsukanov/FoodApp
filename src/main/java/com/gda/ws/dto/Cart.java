@@ -1,4 +1,7 @@
-package com.gda.ws.entity;
+package com.gda.ws.dto;
+
+import com.gda.ws.entity.Food;
+import com.gda.ws.entity.OrderInfo;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -91,7 +94,6 @@ public class Cart {
         }
         return totalPrice;
     }
-
     public OrderInfo getEntityOrderInfo() {
         return entityOrderInfo;
     }
