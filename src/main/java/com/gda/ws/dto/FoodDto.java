@@ -1,5 +1,6 @@
 package com.gda.ws.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gda.ws.entity.FoodCategory;
 import com.gda.ws.entity.OrderFood;
 
@@ -25,6 +26,7 @@ public class FoodDto {
 
     private FoodCategory category;
 
+    @JsonIgnore
     private Collection<OrderFood> orderFoods;
 
     public Long getId() {

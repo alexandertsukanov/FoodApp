@@ -3,6 +3,7 @@ package com.gda.ws.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -21,6 +22,15 @@ public class OrderInfo {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "comment")
+    private String comment;
+
+    @Column(name = "date")
+    private Date date;
+
     @JsonIgnore
     @OneToMany(mappedBy = "orderInfo", cascade = CascadeType.ALL)
     private Collection<Order> orders;
@@ -34,7 +44,6 @@ public class OrderInfo {
         this.phone = phone;
         this.address = address;
     }
-
 
     public Long getId() {
         return id;
@@ -59,6 +68,30 @@ public class OrderInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override

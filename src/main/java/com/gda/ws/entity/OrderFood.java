@@ -17,7 +17,6 @@ public class OrderFood {
     @Column(name = "quantity")
     private Long quantity;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false)
     private Food food;
@@ -35,13 +34,28 @@ public class OrderFood {
         this.id = id;
     }
 
-
     public Long getQuantity() {
         return quantity;
     }
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -65,20 +79,4 @@ public class OrderFood {
     }
 
 
-    public Food getFood() {
-        return food;
-    }
-
-    public void setFood(Food food) {
-        this.food = food;
-    }
-
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "food")
+@Table(name = "food", schema = "foodapp")
 public class Food {
 
     @Id
@@ -35,6 +35,9 @@ public class Food {
 
     @Column(name = "image_link")
     private String imageLink;
+
+    @Column(name = "rating")
+    private Long rating;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -121,6 +124,14 @@ public class Food {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
     }
 
     @Override

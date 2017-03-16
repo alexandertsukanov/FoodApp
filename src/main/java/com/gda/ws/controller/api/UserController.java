@@ -24,7 +24,6 @@ public class UserController {
     @Autowired
     private UserService service;
 
-
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
      * JSON.

@@ -12,6 +12,7 @@ import com.gda.ws.utils.MapperUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Scope("session")
 public class FoodServiceBean implements FoodService {
 
     private static final Logger LOG = LoggerFactory.getLogger(FoodServiceBean.class);
@@ -50,6 +52,8 @@ public class FoodServiceBean implements FoodService {
 
     @Autowired
     private HistoryRepository historyRepository;
+
+    private User user;
 
     @Override
     public void deleteOneFood(Long id) {
@@ -112,7 +116,7 @@ public class FoodServiceBean implements FoodService {
     @Override
     public Collection<Cart> findAllHistory() {
         LOG.info("> findAllHistory");
-        List<History> found = historyRepository.findAll();
+        List<History> found = historyRepository.findHistoryByOrderUserId(user.getId());
         List<Cart> toSend = new ArrayList<>();
         for (History history : found) {
             Cart cart = new Cart();
@@ -140,12 +144,15 @@ public class FoodServiceBean implements FoodService {
         OrderInfo receivedOrderInfo = cart.getEntityOrderInfo();
         receivedOrderInfo.setId(null);
         Order order = new Order();
+        user = userRepository.findOne(cart.getUser().getId());
         order.setOrderInfo(receivedOrderInfo);
         order.setStatus(orderStatusRepository.findOne(1L));
-        order.setUser(userRepository.findOne(1L));
+        order.setUser(user);
         List<Food> entityFoodList = cart.getEntityFoodList();
         for (int i = 0; i < entityFoodList.size(); i++) {
             Food food = foodRepository.findOne(entityFoodList.get(i).getId());
+            Long rating = food.getRating();
+            food.setRating(++rating);
             OrderFood orderFood = new OrderFood();
             orderFood.setFood(food);
             orderFood.setOrder(order);
@@ -154,7 +161,7 @@ public class FoodServiceBean implements FoodService {
         }
         History history = new History();
         history.setOrder(order);
-        history.setUser(userRepository.findOne(1L));
+        history.setUser(user);
         historyRepository.save(history);
         cart.setEntityOrderInfo(order.getOrderInfo());
         return cart;

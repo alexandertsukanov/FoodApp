@@ -1,8 +1,8 @@
 package com.gda.ws.service;
 
-import java.util.Collection;
-
 import com.gda.ws.dto.UserDto;
+
+import java.util.Collection;
 
 public interface UserService {
 

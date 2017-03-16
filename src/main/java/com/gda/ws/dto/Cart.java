@@ -2,6 +2,7 @@ package com.gda.ws.dto;
 
 import com.gda.ws.entity.Food;
 import com.gda.ws.entity.OrderInfo;
+import com.gda.ws.entity.User;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
+
+    private User user;
 
     private List<Food> entityFoodList;
 
@@ -96,6 +99,14 @@ public class Cart {
     }
     public OrderInfo getEntityOrderInfo() {
         return entityOrderInfo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setEntityOrderInfo(OrderInfo entityOrderInfo) {
