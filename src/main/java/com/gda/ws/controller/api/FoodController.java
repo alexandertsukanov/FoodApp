@@ -31,16 +31,7 @@ public class FoodController {
     private FoodService service;
 
     @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderInfoRepository orderInfoRepository;
-
-    @Autowired
-    private OrderFoodRepository orderFoodRepository;
-
-    @Autowired
-    FoodRepository foodRepository;
+    private FoodRepository foodRepository;
 
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
