@@ -141,6 +141,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Cart saveCart(Cart cart) {
+        LOG.info("Saving card...");
         OrderInfo receivedOrderInfo = cart.getEntityOrderInfo();
         receivedOrderInfo.setId(null);
         receivedOrderInfo.setDate(new Date(System.currentTimeMillis()));
