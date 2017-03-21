@@ -1,6 +1,6 @@
 package com.gda.ws.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 
 public class OrderInfoDto {
@@ -16,6 +16,16 @@ public class OrderInfoDto {
     private String comment;
 
     private Date date;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private Collection<OrderDto> orders;
 

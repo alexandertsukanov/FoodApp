@@ -1,9 +1,11 @@
 package com.gda.ws.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Collection;
 
 @Entity
@@ -27,6 +29,9 @@ public class OrderInfo {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "date")
     private Date date;
@@ -92,6 +97,14 @@ public class OrderInfo {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

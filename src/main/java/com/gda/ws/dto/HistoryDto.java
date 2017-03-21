@@ -7,15 +7,15 @@ public class HistoryDto {
 
     private Long id;
 
-    private Order order;
+    private OrderDto order;
 
-    private User orderUser;
+    private UserDto orderUser;
 
-    public User getOrderUser() {
+    public UserDto getOrderUser() {
         return orderUser;
     }
 
-    public void setOrderUser(User orderUser) {
+    public void setOrderUser(UserDto orderUser) {
         this.orderUser = orderUser;
     }
 
@@ -27,11 +27,11 @@ public class HistoryDto {
         this.id = id;
     }
 
-    public Order getOrder() {
+    public OrderDto getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderDto order) {
         this.order = order;
     }
 

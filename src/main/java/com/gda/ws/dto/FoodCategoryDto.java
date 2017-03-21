@@ -13,7 +13,7 @@ public class FoodCategoryDto {
 	private String linkBig;
 
 	@JsonIgnore
-	private Collection<Food> foods;
+	private Collection<FoodDto> foods;
 
 	public Long getId() {
 		return id;
@@ -43,11 +43,11 @@ public class FoodCategoryDto {
 		this.linkBig = linkBig;
 	}
 
-	public Collection<Food> getFoods() {
+	public Collection<FoodDto> getFoods() {
 		return foods;
 	}
 
-	public void setFoods(Collection<Food> foods) {
+	public void setFoods(Collection<FoodDto> foods) {
 		this.foods = foods;
 	}
 }

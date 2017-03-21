@@ -24,7 +24,7 @@ public interface FoodService {
 
     void deleteOneCategory(Long id);
 
-    Collection<Cart> findAllHistory();
+    Collection<Cart> findAllHistory(String deviceId);
 
     Collection<FoodCategoryDto> findAllFoodCategories();
 

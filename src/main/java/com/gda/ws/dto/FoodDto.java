@@ -24,10 +24,10 @@ public class FoodDto {
 
     private String calories;
 
-    private FoodCategory category;
+    private FoodCategoryDto category;
 
     @JsonIgnore
-    private Collection<OrderFood> orderFoods;
+    private Collection<OrderFoodDto> orderFoods;
 
     public Long getId() {
         return id;
@@ -93,19 +93,19 @@ public class FoodDto {
         this.weight = weight;
     }
 
-    public FoodCategory getCategory() {
+    public FoodCategoryDto getCategory() {
         return category;
     }
 
-    public void setCategory(FoodCategory category) {
+    public void setCategory(FoodCategoryDto category) {
         this.category = category;
     }
 
-    public Collection<OrderFood> getOrderFoods() {
+    public Collection<OrderFoodDto> getOrderFoods() {
         return orderFoods;
     }
 
-    public void setOrderFoods(Collection<OrderFood> orderFoods) {
+    public void setOrderFoods(Collection<OrderFoodDto> orderFoods) {
         this.orderFoods = orderFoods;
     }
 }

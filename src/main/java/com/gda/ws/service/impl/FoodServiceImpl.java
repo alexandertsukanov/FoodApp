@@ -15,16 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Scope("session")
-public class FoodServiceBean implements FoodService {
+public class FoodServiceImpl implements FoodService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FoodServiceBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FoodServiceImpl.class);
 
     @Autowired
     private FoodCategoryRepository foodCategoryRepository;
@@ -53,7 +54,6 @@ public class FoodServiceBean implements FoodService {
     @Autowired
     private HistoryRepository historyRepository;
 
-    private User user;
 
     @Override
     public void deleteOneFood(Long id) {
@@ -77,19 +77,19 @@ public class FoodServiceBean implements FoodService {
 
     @Override
     public FoodDto findOneFood(Long id) {
-        return mapperUtils.convertToFoodDto(foodRepository.findOne(id));
+        return mapperUtils.toFoodDto(foodRepository.findOne(id));
     }
 
     @Override
     public FoodCategoryDto findOneCategory(Long id) {
-        return mapperUtils.convertToFoodCategoryDto(foodCategoryRepository.findOne(id));
+        return mapperUtils.toFoodCategoryDto(foodCategoryRepository.findOne(id));
     }
 
     @Override
     public Collection<FoodDto> findAllfood() {
         LOG.info("> findAllFood");
         Collection<Food> found = foodRepository.findAll();
-        Collection<FoodDto> result = found.stream().map(e -> mapperUtils.convertToFoodDto(e)).collect(Collectors.toList());
+        Collection<FoodDto> result = found.stream().map(e -> mapperUtils.toFoodDto(e)).collect(Collectors.toList());
         LOG.info("< findAllFood");
         return result;
     }
@@ -99,7 +99,7 @@ public class FoodServiceBean implements FoodService {
         LOG.info("> findAll");
         Collection<FoodCategory> found = foodCategoryRepository.findAll();
         Collection<FoodCategoryDto> result = found.stream()
-                .map(e -> mapperUtils.convertToFoodCategoryDto(e)).collect(Collectors.toList());
+                .map(e -> mapperUtils.toFoodCategoryDto(e)).collect(Collectors.toList());
         LOG.info("< findAll");
         return result;
     }
@@ -108,19 +108,20 @@ public class FoodServiceBean implements FoodService {
     public Collection<FoodDto> findFoodByCategory(Long id) {
         LOG.info("> findFoodByCategory");
         Collection<Food> found = foodRepository.findFoodByCategoryId(id);
-        Collection<FoodDto> result = found.stream().map(e -> mapperUtils.convertToFoodDto(e)).collect(Collectors.toList());
+        Collection<FoodDto> result = found.stream().map(e -> mapperUtils.toFoodDto(e)).collect(Collectors.toList());
         LOG.info("< findFoodByCategory");
         return result;
     }
 
     @Override
-    public Collection<Cart> findAllHistory() {
-        LOG.info("> findAllHistory");
+    public Collection<Cart> findAllHistory(String deviceId) {
+        LOG.info("> findAllHistory of User by DeviceId " + deviceId);
+        User user = userRepository.findByDeviceId(deviceId);
         List<History> found = historyRepository.findHistoryByOrderUserId(user.getId());
         List<Cart> toSend = new ArrayList<>();
         for (History history : found) {
             Cart cart = new Cart();
-            List<Food> foodCollection = new ArrayList<>();
+            cart.setUser(history.getUser());
             cart.setEntityOrderInfo(history.getOrder().getOrderInfo());
             Collection<OrderFood> orderFoodCollection = history.getOrder().getOrderFoods();
             for (OrderFood orderFood : orderFoodCollection) {
@@ -131,11 +132,10 @@ public class FoodServiceBean implements FoodService {
                 } else {
                     cart.addFood(orderFood.getFood());
                 }
-
             }
             toSend.add(cart);
         }
-        LOG.info("< findAllHistory");
+        LOG.info("< findAllHistory of User by DeviceId " + deviceId);
         return toSend;
     }
 
@@ -143,8 +143,9 @@ public class FoodServiceBean implements FoodService {
     public Cart saveCart(Cart cart) {
         OrderInfo receivedOrderInfo = cart.getEntityOrderInfo();
         receivedOrderInfo.setId(null);
+        receivedOrderInfo.setDate(new Date(System.currentTimeMillis()));
         Order order = new Order();
-        user = userRepository.findOne(cart.getUser().getId());
+        User user = userRepository.findOne(cart.getUser().getId());
         order.setOrderInfo(receivedOrderInfo);
         order.setStatus(orderStatusRepository.findOne(1L));
         order.setUser(user);
@@ -164,6 +165,7 @@ public class FoodServiceBean implements FoodService {
         history.setUser(user);
         historyRepository.save(history);
         cart.setEntityOrderInfo(order.getOrderInfo());
+        LOG.info("Card saved.");
         return cart;
     }
 }

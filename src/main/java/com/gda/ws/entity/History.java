@@ -42,4 +42,5 @@ public class History {
     public void setUser(User orderUser) {
         this.orderUser = orderUser;
     }
+
 }

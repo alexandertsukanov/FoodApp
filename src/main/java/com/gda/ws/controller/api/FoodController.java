@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.entity.OrderInfo;
 import com.gda.ws.repository.FoodRepository;
 import com.gda.ws.repository.OrderFoodRepository;
 import com.gda.ws.repository.OrderInfoRepository;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 @RestController
 public class FoodController {
@@ -47,12 +49,15 @@ public class FoodController {
      * @return A ResponseEntity containing a Collection of objects.
      */
 
+    @RequestMapping(value = "/api/test")
+    public void getOrderInfo(){
+
+    }
+
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
     public Cart saveOrder(@RequestBody Cart cart) throws JsonProcessingException {
         LOG.info("Saving cart...");
         ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(cart);
-        LOG.info(jsonInString);
         return service.saveCart(cart);
     }
 
@@ -76,13 +81,12 @@ public class FoodController {
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/history",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Cart>> findHistory() {
-        LOG.info("> foodAllHistory");
-        Collection<Cart> entities = service.findAllHistory();
-        LOG.info("< foodAllHistory");
+    @RequestMapping(value = "/api/history/{deviceId}"
+            , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Cart>> findHistory(@PathVariable("deviceId") String deviceId) {
+        LOG.info("> findAllHistory of User by DeviceId " + deviceId);
+        Collection<Cart> entities = service.findAllHistory(deviceId);
+        LOG.info("< findAllHistory of User by DeviceId " + deviceId);
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
