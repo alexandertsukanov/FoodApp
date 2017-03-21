@@ -32,7 +32,7 @@ public class FoodController {
 
     @Autowired
     private OrderRepository orderRepository;
-    //
+
     @Autowired
     private OrderInfoRepository orderInfoRepository;
 
@@ -48,11 +48,6 @@ public class FoodController {
      *
      * @return A ResponseEntity containing a Collection of objects.
      */
-
-    @RequestMapping(value = "/api/test")
-    public void getOrderInfo(){
-
-    }
 
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
     public Cart saveOrder(@RequestBody Cart cart) throws JsonProcessingException {

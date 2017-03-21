@@ -9,14 +9,14 @@ public class HistoryDto {
 
     private OrderDto order;
 
-    private UserDto orderUser;
+    private UserDto user;
 
     public UserDto getOrderUser() {
-        return orderUser;
+        return user;
     }
 
-    public void setOrderUser(UserDto orderUser) {
-        this.orderUser = orderUser;
+    public void setOrderUser(UserDto user) {
+        this.user = user;
     }
 
     public Long getId() {

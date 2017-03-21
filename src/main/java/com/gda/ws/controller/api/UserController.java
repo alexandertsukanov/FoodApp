@@ -30,6 +30,7 @@ public class UserController {
      *
      * @return A ResponseEntity containing a Collection of objects.
      */
+
     @RequestMapping(value = "/api/users",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
