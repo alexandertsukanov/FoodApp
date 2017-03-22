@@ -24,7 +24,6 @@ repositories {
 }
 
 dependencies {
-//    compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '0.7.7'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -33,12 +32,11 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-context-support'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda'
     compile group: 'com.google.guava', name: 'guava', version: guavaVersion
-//    compile group: 'org.liquibase', name: 'liquibase-core'
+    compile group: 'org.liquibase', name: 'liquibase-core'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
     compile group: 'javax.servlet', name: 'javax.servlet-api'
     compile group: 'jstl', name: 'jstl', version: '1.2'
-//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix', version: '1.2.5.RELEASE'
 
     compile group: 'mysql', name: 'mysql-connector-java'
 

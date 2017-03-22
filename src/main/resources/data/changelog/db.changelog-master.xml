@@ -10,6 +10,6 @@
     that contains database changes.
     See: liquibase.org/bestpractices.html
    -->
-    <include file="data/changelog/db.changelog-0.1.0.xml"/>
+    <include file="data/changelog/foodapp.sql"/>
 
 </databaseChangeLog>
