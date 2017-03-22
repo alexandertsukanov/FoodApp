@@ -5,11 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
-import com.gda.ws.entity.OrderInfo;
-import com.gda.ws.repository.FoodRepository;
-import com.gda.ws.repository.OrderFoodRepository;
-import com.gda.ws.repository.OrderInfoRepository;
-import com.gda.ws.repository.OrderRepository;
 import com.gda.ws.service.FoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Date;
 
 @RestController
 public class FoodController {
@@ -29,9 +23,6 @@ public class FoodController {
 
     @Autowired
     private FoodService service;
-
-    @Autowired
-    private FoodRepository foodRepository;
 
     /**
      * Web service endpoint to fetch all entities. The service returns the collection of entities as
@@ -43,7 +34,6 @@ public class FoodController {
     @RequestMapping(value = "/api/cart-save", method = RequestMethod.POST)
     public Cart saveOrder(@RequestBody Cart cart) throws JsonProcessingException {
         LOG.info("Saving cart...");
-        ObjectMapper mapper = new ObjectMapper();
         return service.saveCart(cart);
     }
 

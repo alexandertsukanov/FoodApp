@@ -34,7 +34,6 @@ public class MapperUtils {
         return entity;
     }
 
-
     public FoodCategoryDto toFoodCategoryDto(FoodCategory entity) {
         if (Objects.isNull(entity)) {
             return null;

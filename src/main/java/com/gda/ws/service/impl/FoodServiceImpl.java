@@ -3,6 +3,7 @@ package com.gda.ws.service.impl;
 import com.gda.ws.dto.Cart;
 import com.gda.ws.dto.FoodCategoryDto;
 import com.gda.ws.dto.FoodDto;
+import com.gda.ws.dto.HistoryDto;
 import com.gda.ws.entity.*;
 import com.gda.ws.forms.FoodCategoryForm;
 import com.gda.ws.forms.FoodForm;
